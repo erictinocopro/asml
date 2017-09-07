@@ -4,8 +4,65 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "22fca498d6f7bc8f0888b62dd9b93e65",
+    "content-hash": "c3cebc7f9b5964ed2bf195fb28995548",
     "packages": [
+        {
+            "name": "alepane21/php-google-spreadsheet-client",
+            "version": "2.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alepane21/php-google-spreadsheet-client.git",
+                "reference": "098e0f2e98ca86a281ff6a2ca2128f2de974ca6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alepane21/php-google-spreadsheet-client/zipball/098e0f2e98ca86a281ff6a2ca2128f2de974ca6c",
+                "reference": "098e0f2e98ca86a281ff6a2ca2128f2de974ca6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "src/"
+            ],
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Asim Liaquat",
+                    "email": "asimlqt22@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Martin Czygan",
+                    "email": "martin.czygan@gmail.com",
+                    "homepage": "http://twitter.com/cvvfj",
+                    "role": "Packager"
+                },
+                {
+                    "name": "Alessandro Pagnin",
+                    "email": "alepane@gmail.com",
+                    "homepage": "http://alepane.it/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Google Spreadsheet PHP Client (forked to work on PHP 5.2.1+)",
+            "homepage": "https://github.com/alepane21/php-google-spreadsheet-client",
+            "keywords": [
+                "google",
+                "spreadsheet"
+            ],
+            "time": "2014-10-27T13:13:42+00:00"
+        },
         {
             "name": "container-interop/container-interop",
             "version": "1.2.0",

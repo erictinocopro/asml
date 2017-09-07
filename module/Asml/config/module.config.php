@@ -18,49 +18,15 @@ return [
         ],
         'aliases' => [
             'Service\AsmlActivities' => Service\AsmlActivities::class,
-	],
+        ],
     ],
-    'router' => [
-        'routes' => [
-            'asml' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/asml',
-                    'defaults' => [
-                        'controller' => Controller\AsmlController::class,
-                        'action'     => 'index',
-                    	],
-		],
-		'may_terminate' => true,
-                'child_routes' => [
-                    'sections' => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route' => '/sections',
-                            'defaults' => [
-                                'action' => 'sectionsList',
-                            ],
-                        ],
-                    ],
-                    'activities' => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route' => '/activities',
-                            'defaults' => [
-                                'action' => 'activitiesList',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-	],
-    ],
+    'router' => include 'routes.config.php',
     'session_containers' => [
         'UserRegistration',
     ],
     'view_manager' => [
         'strategies' => [
-           'ViewJsonStrategy',
+            'ViewJsonStrategy',
         ],
         'template_path_stack' => [
             'album' => __DIR__ . '/../view',

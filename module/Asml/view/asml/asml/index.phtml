@@ -10,7 +10,7 @@
             .container p{font-size:15px;color:#222222;}
             .container div{margin-top:10px;}
             .container input, textarea, button{ margin: 2px; /*border:2px solid #9ECEDB;*/padding:3px 5px;}
-			.container activite{ margin: 5px;}
+            .container activite{ margin: 5px;}
             .container #prix{ width: 40px; padding:3px 5px;}
             .container button{border:2px solid #9ECEDB;}
             .container label{font-weight:bold;font-size:12px;color:#184552;}
@@ -59,8 +59,8 @@
                 display:-webkit-flex;display:flex;flex-flow: column;} 
             #step1 > maindata input { width:100%;box-sizing : border-box;}
             #step1 > subdata input:not([type='radio']) { width:100%;box-sizing : border-box;}
-			#signature {flex-flow: row; -webkit-flex-direction: row; flex-direction: row;}
-			#signature .nomsignature{width: 200px;}
+            #signature {flex-flow: row; -webkit-flex-direction: row; flex-direction: row;}
+            #signature .nomsignature{width: 200px;}
 
             #nav {min-height: 50px; margin: 0; padding: 0; 
                 display: -webkit-flex; display: flex; flex-flow: row;
@@ -91,8 +91,8 @@
                 #step1 > photo, #step1 > maindata, #step1 > subdata {order: 0;}
             }
 
-			body select { padding: 5px 30px 5px 10px !important; max-width: 100%; height: auto !important; border: 1px solid #e3e3e3; border-radius: 3px; background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat; background-color: #fff; color: #444444; font-size: 12px; line-height: 16px !important; appearance: none; /* this is must */ -webkit-appearance: none; -moz-appearance: none; } 
-			body select option { padding: 0 4px; }
+            body select { padding: 5px 30px 5px 10px !important; max-width: 100%; height: auto !important; border: 1px solid #e3e3e3; border-radius: 3px; background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat; background-color: #fff; color: #444444; font-size: 12px; line-height: 16px !important; appearance: none; /* this is must */ -webkit-appearance: none; -moz-appearance: none; } 
+            body select option { padding: 0 4px; }
         </style>
     </head>
     <body>
@@ -171,7 +171,7 @@
                         </div>
                     </subdata>
                 </div>
-		<?= $this->formElement($form->get('ctok')); ?>
+        <?= $this->formElement($form->get('ctok')); ?>
             </form>
             <form id="form2">
                 <div id="step2" style="display: none;">
@@ -201,14 +201,7 @@
                             <label for="commentaire"><p>Commentaires <span>(contraintes médicales …)</span></p></label>
                             <textarea name='commentaire' id="commentaire"></textarea>
                         </div>
-                        <div>
-                            <label for="inscrfamille">Inscription Famille?</label>
-                            <input type='checkbox' name='inscrfamille' id="inscrfamille" value=1 />
-                            <p id="pinscrfamillename">
-                                <label for="inscrfamillename">Nom de l’autre adhérent : </label>
-                                <input type='text' class="textup" id="inscrfamillename" name='inscrfamillename' placeholder="Saisir le nom et le prénom de l'autre adhérent" />
-                            </p>
-                        </div>
+
                         <div>
                             <label for="documentreglement">Demande (joindre enveloppe supplémentaire, timbrée à votre adresse)</label>
                             <input type='checkbox' name='attestation' value=1 />Attestation
@@ -216,7 +209,7 @@
                         </div>
                     </annexes>
                 </div>
-		<?= $this->formElement($form->get('ctok')); ?>
+                <?= $this->formElement($form->get('ctok')); ?>
             </form>
             <form id="form3">
                 <div id="step3" style="display: none;">
@@ -277,18 +270,26 @@
                         </div>
                     </div>
                 </div>
-		<?= $this->formElement($form->get('ctok')); ?>
+                <?= $this->formElement($form->get('ctok')); ?>
             </form>
             <form id="form4" method="post" action="">
                 <div id="step4" style="display: none;">
-				    <div id="signature">
+                    <div id="signature">
                     Je soussigné(e), <input type='text' class="textup" id='nomsignature' name='nomsignature' placeholder="Nom et prénom" required /> déclare avoir pris connaissance de la charte ASML (au verso et sur le site) et en accepter les termes.
                     </div>
+                    <div>
+                        <label for="inscrfamille">Inscription Famille?</label>
+                        <input type='checkbox' name='inscrfamille' id="inscrfamille" value=1 />
+                        <p id="pinscrfamillename">
+                            <label for="inscrfamillename">Nom de l’autre adhérent : </label>
+                            <input type='text' class="textup" id="inscrfamillename" name='inscrfamillename' placeholder="Saisir le nom et le prénom de l'autre adhérent" />
+                        </p>
+                    </div>
                 </div>
-		<?= $this->formElement($form->get('ctok')); ?>
+                <?= $this->formElement($form->get('ctok')); ?>
             </form>
             <div id="inscriptionfinie" style="display: none;">
-        Merci pour votre inscription
+            Merci pour votre inscription
             </div>
             <div id="nav">
                 <button id="prev-step" type="submit" style="display: none;" > Precedent </button>
@@ -301,6 +302,7 @@
             var closeBut = '<button class="closing" id="closing" >X</button>';
             var iMaxFilesize = 1048576; // 1MB
             var formVars = {};
+            var startPos = 1;
 
             document.addEventListener('DOMContentLoaded', function() {
                 var forms = document.querySelectorAll('form');
@@ -309,10 +311,10 @@
                     form.noValidate = true;
                 }
             });
- 
+
             var validateForm = function(submitEvent, form) {
 
-		        var elements = form.elements;
+                var elements = form.elements;
 
                 if (!form.checkValidity()) {
                     /* Seriously, hold everything. */
@@ -343,6 +345,7 @@
             };
 
             document.getElementById("addactivity").addEventListener("click", function(e) {
+
                 e.preventDefault();
                 var activites = document.getElementsByTagName('activite');
                 var itm = activites[0],
@@ -362,7 +365,7 @@
                     this.parentNode.parentNode.removeChild(this.parentNode);
                     var activites = document.getElementsByTagName('activite');
                     if (activites.length < 3) {
-                    
+
                         document.getElementById("addactivity").style.display = 'flex';
                     }
                 });
@@ -372,7 +375,7 @@
                 }
             });
             document.getElementById('inscrfamille').addEventListener("click", function(e) {
-                
+
                 if (document.getElementById('inscrfamille').checked) {
                     document.getElementById('pinscrfamillename').style.display = 'flex';
                 } else {
@@ -390,7 +393,7 @@
                     header2 = document.getElementsByTagName("headerstep2")[0],
                     header3 = document.getElementsByTagName("headerstep3")[0],
                     header4 = document.getElementsByTagName("headerstep4")[0];
-                        
+
                 e.preventDefault();
                 errorMessages = document.getElementsByClassName('validation-message');
                 for (var index = 0, len = errorMessages.length; index < len; index++) {
@@ -399,37 +402,35 @@
                     element.parentNode.removeChild(element);
                 }
                 if (div1.style.display != 'none') {
-                    
+
                     if (document.forms['form1'].checkValidity()) {
 
-                        div1.style.display = 'none';
-                        div2.style.display = 'flex';
-                        div3.style.display = 'none';
-                        div4.style.display = 'none';
-                        header1.style.display = 'none';
-                        header2.style.display = 'flex';
-                        header3.style.display = 'none';
-                        header4.style.display = 'none';
                         for ( var i = 0; i < document.forms['form1'].elements.length; i++ ) {
+
                             var e = document.forms['form1'].elements[i];
                             formVars[ e.name ] = e.value;
                         }
+                        if (false!==saveData('step1', startPos, formVars)) {
+
+                            div1.style.display = 'none';
+                            div2.style.display = 'flex';
+                            div3.style.display = 'none';
+                            div4.style.display = 'none';
+                            header1.style.display = 'none';
+                            header2.style.display = 'flex';
+                            header3.style.display = 'none';
+                            header4.style.display = 'none';
+                        } else {
+                            return;
+                        }
                     } else {
 
-			return validateForm(e, document.forms['form1']);
+                        return validateForm(e, document.forms['form1']);
                     }
                 } else if (div2.style.display != 'none') {
-                                        
+
                     if (document.forms['form2'].checkValidity()) {
 
-                        div1.style.display = 'none';
-                        div2.style.display = 'none';
-                        div3.style.display = 'flex';
-                        div4.style.display = 'none';
-                        header1.style.display = 'none';
-                        header2.style.display = 'none';
-                        header3.style.display = 'flex';
-                        header4.style.display = 'none';
                         for ( var i = 0; i < document.forms['form2'].elements.length; i++ ) {
                             var e = document.forms['form2'].elements[i];
                             formVars[ e.name ] = e.value;
@@ -439,30 +440,41 @@
                         for (var index = prices.length - 1; index >= 0; index--) {
                             formVars[ 'montant_total' ] += parseInt(prices[index].value);
                         }
-                        document.getElementById('montant_total').innerHTML = formVars['montant_total'];
+                        if(false!==saveData('step2', startPos, formVars)) {
 
-                        document.getElementById("ancv").addEventListener("change", function(e) {
+                            div1.style.display = 'none';
+                            div2.style.display = 'none';
+                            div3.style.display = 'flex';
+                            div4.style.display = 'none';
+                            header1.style.display = 'none';
+                            header2.style.display = 'none';
+                            header3.style.display = 'flex';
+                            header4.style.display = 'none';
 
-                            displayBox = 'none';
-                            if (this.checked) {
+                            document.getElementById('montant_total').innerHTML = formVars['montant_total'];
 
-                                displayBox = 'flex';
-                            }
-                            document.getElementById('s_montantancv').style.display = displayBox;
-                        });
+                            document.getElementById("ancv").addEventListener("change", function(e) {
 
-                        paiementRadios = document.querySelectorAll('#paiement');
-                        for (var i = 0; i < paiementRadios.length; i++) {
-                            var self = paiementRadios[i];
-                            self.addEventListener("click", function(e) {
+                                displayBox = 'none';
+                                if (this.checked) {
 
-                                items = document.getElementsByName('cheque_novembre');
-                                for(i = 0;i < items.length; i++){
-
-                                    items[i].removeAttribute("required");
+                                    displayBox = 'flex';
                                 }
+                                document.getElementById('s_montantancv').style.display = displayBox;
+                            });
 
-                                switch (this.value) {
+                            paiementRadios = document.querySelectorAll('#paiement');
+                            for (var i = 0; i < paiementRadios.length; i++) {
+                                var self = paiementRadios[i];
+                                self.addEventListener("click", function(e) {
+
+                                    items = document.getElementsByName('cheque_novembre');
+                                    for(i = 0;i < items.length; i++){
+
+                                        items[i].removeAttribute("required");
+                                    }
+
+                                    switch (this.value) {
 
                                     case '1':
                                         document.getElementById('cheque_1').style.display = 'flex';
@@ -495,30 +507,42 @@
                                         document.getElementById('cheque_avril_3').required=true;
 
                                         break;
-                                }
-                            });
+                                    }
+                                });
+                            }
+                        } else {
+
+                            return;
                         }
                     } else {
 
                         return validateForm(e, document.forms['form2']);
                     }
                 } else {
+                    
                     if (document.forms['form3'].checkValidity()) {
-                        div1.style.display = 'none';
-                        div2.style.display = 'none';
-                        div3.style.display = 'none';
-                        div4.style.display = 'flex';
-                        header1.style.display = 'none';
-                        header2.style.display = 'none';
-                        header3.style.display = 'none';
-                        header4.style.display = 'flex';
+                        
                         for ( var i = 0; i < document.forms['form3'].elements.length; i++ ) {
-                               var e = document.forms['form3'].elements[i];
+                            var e = document.forms['form3'].elements[i];
                             formVars[ e.name ] = e.value;
+                        }
+                        if (false!==saveData('step3', startPos, formVars)) {
+
+                            div1.style.display = 'none';
+                            div2.style.display = 'none';
+                            div3.style.display = 'none';
+                            div4.style.display = 'flex';
+                            header1.style.display = 'none';
+                            header2.style.display = 'none';
+                            header3.style.display = 'none';
+                            header4.style.display = 'flex';
+                        }else{
+
+                            return;
                         }
                     } else {
 
-			            return validateForm(e, document.forms['form3']);
+                        return validateForm(e, document.forms['form3']);
                     }
                 }
                 if (div1.style.display != 'none')
@@ -532,6 +556,7 @@
                     elementNext.style.display = 'flex';
             });
             document.getElementById("prev-step").addEventListener("click", function(e) {
+
                 e.preventDefault();
                 var elementNext = document.getElementById("next-step"),
                     elementPrev = document.getElementById("prev-step"),
@@ -543,37 +568,56 @@
                     header2 = document.getElementsByTagName("headerstep2")[0],
                     header3 = document.getElementsByTagName("headerstep3")[0],
                     header4 = document.getElementsByTagName("headerstep4")[0];
-                        
+
                 if (div4.style.display != 'none') {
-                    
-                    div1.style.display = 'none';
-                    div2.style.display = 'none';
-                    div3.style.display = 'flex';
-                    div4.style.display = 'none';
-                    header1.style.display = 'none';
-                    header2.style.display = 'none';
-                    header3.style.display = 'flex';
-                    header4.style.display = 'none';
+
+                    if (false !== cleanData('step3', startPos)) {
+
+                        div1.style.display = 'none';
+                        div2.style.display = 'none';
+                        div3.style.display = 'flex';
+                        div4.style.display = 'none';
+                        header1.style.display = 'none';
+                        header2.style.display = 'none';
+                        header3.style.display = 'flex';
+                        header4.style.display = 'none';
+                    }else{
+
+                        return;
+                    }
                 } else if ( div3.style.display != 'none') {
-                                        
-                    div1.style.display = 'none';
-                    div2.style.display = 'flex';
-                    div3.style.display = 'none';
-                    div4.style.display = 'none';
-                    header1.style.display = 'none';
-                    header2.style.display = 'flex';
-                    header3.style.display = 'none';
-                    header4.style.display = 'none';
+
+                    if (false!==cleanData('step2', startPos)) {
+
+                        div1.style.display = 'none';
+                        div2.style.display = 'flex';
+                        div3.style.display = 'none';
+                        div4.style.display = 'none';
+                        header1.style.display = 'none';
+                        header2.style.display = 'flex';
+                        header3.style.display = 'none';
+                        header4.style.display = 'none';
+                    }else{
+
+                        return;
+                    }
+
                 } else {
-                                        
-                    div1.style.display = 'flex';
-                    div2.style.display = 'none';
-                    div3.style.display = 'none';
-                    div4.style.display = 'none';
-                    header1.style.display = 'flex';
-                    header2.style.display = 'none';
-                    header3.style.display = 'none';
-                    header4.style.display = 'none';
+
+                    if(false!==cleanData('step1', startPos)){
+
+                        div1.style.display = 'flex';
+                        div2.style.display = 'none';
+                        div3.style.display = 'none';
+                        div4.style.display = 'none';
+                        header1.style.display = 'flex';
+                        header2.style.display = 'none';
+                        header3.style.display = 'none';
+                        header4.style.display = 'none';
+                    }else{
+
+                        return;
+                    }
                 }
                 if (div1.style.display != 'none')
                     elementPrev.style.display = 'none';
@@ -588,6 +632,7 @@
                 }
             });
             document.getElementById("submit").addEventListener("click", function(e) {
+
                 e.preventDefault();
                 var element = document.getElementById("next-step");
                 if (element.style.display != 'none')
@@ -595,7 +640,12 @@
 
                 if (document.forms['form4'].checkValidity()) {
                     //console.log(formVars);
+                    saveData('step4', startPos, formVars);
                 } else {
+                    if (e.target.id=='prev-step') {
+
+                        return;
+                    }
                     return validateForm(e, document.forms['form4']);
                 }
             });
@@ -604,18 +654,18 @@
             function captchaFeedback(token) {
 
                 grecaptcha.execute();
-		var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'postForm.php');
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?=$this->url('asml/savedata')?>',false);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.onload = function() {
-                	if (xhr.status === 200) {
+                    if (xhr.status === 200) {
 
-                		document.getElementById('step4').style.display = 'none';
-                		document.getElementById('nav').style.display = 'none';
-                		document.getElementById('inscriptionfinie').style.display = 'flex';
-			}
-		}
-   		xhr.send(JSON.stringify({'formData':formVars})); 
+                        document.getElementById('step4').style.display = 'none';
+                        document.getElementById('nav').style.display = 'none';
+                        document.getElementById('inscriptionfinie').style.display = 'flex';
+                    }
+                }
+                xhr.send(JSON.stringify({'currentStep': 'step4', 'currentPos': startPos, 'formData': formVars}));
             }
 
             function bindActivities(event) {
@@ -655,102 +705,136 @@
                                     prixActivite.value = dayInfo[0].prix;
                                     for (optKey in dayInfo) {
 
-                                       var opt = document.createElement('option');
-                                       opt.value = dayInfo[optKey].value;
-                                       opt.innerHTML = dayInfo[optKey].html;
-                                       selectDay.appendChild(opt);
+                                        var opt = document.createElement('option');
+                                        opt.value = dayInfo[optKey].value;
+                                        opt.innerHTML = dayInfo[optKey].html;
+                                        selectDay.appendChild(opt);
                                     }
                                 }
                             }
                             xhr.send(JSON.stringify({'activite': this.value}));
-                    });
-                }
-            }
-            xhr.send(JSON.stringify({'section': this.value}));
-        }
-
-        function displayUpload() {
-            var oFile = document.getElementById('photo').files[0];
-            if (oFile.size > iMaxFilesize) {
-                return;
-            }
-            document.getElementById('uploadPhoto').style.display = 'flex'; 
-            document.getElementById('photo').style.display = 'none'; 
-            document.getElementById('photolabel').style.display = 'none'; 
-
-            var oImage = document.getElementById('preview');
-            var oReader = new FileReader();
-            oReader.onload = function(e){
-                oImage.src = e.target.result;    
-            }
-            oReader.readAsDataURL(oFile);
-
-            document.getElementById('uploadPhoto').addEventListener("click", function(e) {
-                e.preventDefault();
-                var oFile = document.getElementById('photo').files[0];
-                var vFD = new FormData();
-                vFD.append('photo', oFile);
-                vFD.append('email', document.getElementById('email').value);
-                var oXHR = new XMLHttpRequest();
-                oXHR.open('POST', 'upload.php');
-                oXHR.onload = function() {
-                    if (oXHR.status === 200) {
-                        var photoInfo = JSON.parse(oXHR.responseText);
-                        if (photoInfo.error) {
-
-                            return;
-                        }
-                        formVars['photo'] = photoInfo.localPath;
+                        });
                     }
                 }
-                oXHR.send(vFD);
-            });
-        }
+                xhr.send(JSON.stringify({'section': this.value}));
+            }
 
-        function replaceValidationUI( form ) {
-            // Suppress the default bubbles
-            form.addEventListener( "invalid", function( event ) {
-                event.preventDefault();
-            }, true );
+            function displayUpload() {
+                var oFile = document.getElementById('photo').files[0];
+                if (oFile.size > iMaxFilesize) {
+                    return;
+                }
+                document.getElementById('uploadPhoto').style.display = 'flex'; 
+                document.getElementById('photo').style.display = 'none'; 
+                document.getElementById('photolabel').style.display = 'none'; 
 
-            // Support Safari, iOS Safari, and the Android browser—each of which do not prevent
-            // form submissions by default
-            form.addEventListener( "submit", function( event ) {
-                if ( !this.checkValidity() ) {
+                var oImage = document.getElementById('preview');
+                var oReader = new FileReader();
+                oReader.onload = function(e){
+                    oImage.src = e.target.result;    
+                }
+                oReader.readAsDataURL(oFile);
+
+                document.getElementById('uploadPhoto').addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var oFile = document.getElementById('photo').files[0];
+                    var vFD = new FormData();
+                    vFD.append('photo', oFile);
+                    vFD.append('email', document.getElementById('email').value);
+                    var oXHR = new XMLHttpRequest();
+                    oXHR.open('POST', '<?=$this->url('asml/uploadphoto')?>');
+                    oXHR.onload = function() {
+                        if (oXHR.status === 200) {
+                            var photoInfo = JSON.parse(oXHR.responseText);
+                            if (photoInfo.error) {
+
+                                return;
+                            }
+                            formVars['photo'] = photoInfo.localPath;
+                        }
+                    }
+                    oXHR.send(vFD);
+                });
+            }
+
+            function replaceValidationUI( form ) {
+                // Suppress the default bubbles
+                form.addEventListener( "invalid", function( event ) {
                     event.preventDefault();
+                }, true );
+
+                // Support Safari, iOS Safari, and the Android browser—each of which do not prevent
+                // form submissions by default
+                form.addEventListener( "submit", function( event ) {
+                    if ( !this.checkValidity() ) {
+                        event.preventDefault();
+                    }
+                });
+
+                var submitButton = document.querySelector( "#prev-step, #next-step, #submit" );
+                submitButton.addEventListener( "click", function( event ) {
+                    if (event.target.id=="prev-step") {
+
+                        return;
+                    }
+                    var invalidFields = form.querySelectorAll( ":invalid" ),
+                        errorMessages = form.querySelectorAll( ".error-message" ),
+                        parent;
+
+                    // Remove any existing messages
+                    for ( var i = 0; i < errorMessages.length; i++ ) {
+                        errorMessages[ i ].parentNode.removeChild( errorMessages[ i ] );
+                    }
+    
+                    for ( var i = 0; i < invalidFields.length; i++ ) {
+                        parent = invalidFields[ i ].parentNode;
+                        parent.insertAdjacentHTML( "beforeend", "<div class='error-message'>" + 
+                            invalidFields[ i ].validationMessage +
+                            "</div>" );
+                    }
+
+                    // If there are errors, give focus to the first invalid field
+                    if ( invalidFields.length > 0 ) {
+                        invalidFields[ 0 ].focus();
+                    }
+                });
+            }
+
+            // Replace the validation UI for all forms
+            var forms = document.querySelectorAll( "form" );
+            for ( var i = 0; i < forms.length; i++ ) {
+                replaceValidationUI( forms[ i ] );
+            }
+
+            function saveData(currentStep, currentPos, formData)
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?=$this->url('asml/savedata')?>', false);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status !== 200) {
+                        console.log('unable to save data'); 
+                        return false;
+                    }
+                    return true;
                 }
-            });
+                xhr.send(JSON.stringify({'currentStep': currentStep, 'currentPos': currentPos, 'formData': formData}));
+            }
 
-            var submitButton = document.querySelector( "#prev-step, #next-step, #submit" );
-            submitButton.addEventListener( "click", function( event ) {
-                var invalidFields = form.querySelectorAll( ":invalid" ),
-                errorMessages = form.querySelectorAll( ".error-message" ),
-                parent;
-
-                // Remove any existing messages
-                for ( var i = 0; i < errorMessages.length; i++ ) {
-                    errorMessages[ i ].parentNode.removeChild( errorMessages[ i ] );
+            function cleanData(currentStep, currentPos)
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?=$this->url('asml/deletedata')?>', false);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status !== 200) {
+                        console.log('unable to clean data'); 
+                        return false;
+                    }
+                    return true;
                 }
-
-                for ( var i = 0; i < invalidFields.length; i++ ) {
-                    parent = invalidFields[ i ].parentNode;
-                    parent.insertAdjacentHTML( "beforeend", "<div class='error-message'>" + 
-                    invalidFields[ i ].validationMessage +
-                    "</div>" );
-                }
-
-                // If there are errors, give focus to the first invalid field
-                if ( invalidFields.length > 0 ) {
-                    invalidFields[ 0 ].focus();
-                }
-            });
-        }
-
-        // Replace the validation UI for all forms
-        var forms = document.querySelectorAll( "form" );
-        for ( var i = 0; i < forms.length; i++ ) {
-            replaceValidationUI( forms[ i ] );
-        }
+                xhr.send(JSON.stringify({'currentStep': currentStep, 'currentPos': currentPos}));
+            }
         </script>    
     </body>
 </html>
