@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulaire d'inscription ASML</title>
+        <meta charset="UTF-8">
+        <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <style>
+            .container {min-width:300px;max-width:1200px;margin:auto;font-family: sans-serif;}
+            .container h2{text-align: center; color:#27748A;font-size:25px;margin:0;box-shadow: 5px 5px 5px #888888;padding:20px;border:4px solid #27748A;}
+            .container p{font-size:15px;color:#222222;}
+            .container div{margin-top:10px;}
+            .container input, textarea, button{ margin: 2px; /*border:2px solid #9ECEDB;*/padding:3px 5px;}
+			.container activite{ margin: 5px;}
+            .container #prix{ width: 40px; padding:3px 5px;}
+            .container button{border:2px solid #9ECEDB;}
+            .container label{font-weight:bold;font-size:12px;color:#184552;}
+            .container button{background-color: #9ECEDB;color: #184552;cursor:pointer;}
+            .container button:hover{background-color: #CBEAF2;}
+            .required{color:#dd6666;}
+            .validation-message{margin: 5px 0px; padding:5px; border: 1px solid; border-radius:.5em; box-shadow:1px 1px 3px #888; color: #D8000C; background-color: #FFBABA;font-size: 10px;}
+
+            .interacted:invalid {border: 1px solid red;}
+            .interacted:valid {border: 1px solid green;}
+
+            .myFlexedImage {margin: auto; padding: 0; 
+                display: -webkit-flex; display: flex; flex-flow: row;
+                -webkit-flex-direction: row; flex-direction: row;
+                -webkit-justify-content: center; justify-content: center;
+                -webkit-align-items: center; align-items: center;
+                -webkit-align-self: center; align-self: center;
+            }
+
+            #step1 {min-height: 400px; margin: 0; padding: 0; 
+                display: -webkit-flex; display: flex; flex-flow: row;
+                -webkit-flex-direction: row; flex-direction: row;
+                -webkit-justify-content: center; justify-content: center;
+                -webkit-align-items: stretch; align-items: stretch;}
+            #step2, #step3, #step4 {min-height: 400px; margin: 0; padding: 0; 
+                display: -webkit-flex; display: flex; flex-flow: column;
+                -webkit-flex-direction: column; flex-direction: column;
+                -webkit-justify-content: flex-start; justify-content: flex-start;
+                -webkit-align-items: stretch; align-items: stretch;}
+            #step1 > maindata {margin: 4px;padding: 5px;
+                 /*border: 1px solid #cccc33;border-radius: 7pt;background: #dddd88;*/
+                -webkit-flex: 2 1 40%; flex: 2 1 35%;
+                -webkit-order:0; order: 0;}    
+            #step1 > subdata {margin: 4px;padding: 5px;
+                 /*border: 1px solid #cccc33;border-radius: 7pt;background: #dddd88;*/
+                -webkit-flex: 2 1 40%; flex: 2 1 35%;
+                -webkit-order:1; order: 1;
+                -webkit-align-self: strech; align-self: strech;}    
+            #step1 > photo {margin: 4px;padding: 5px;
+                width: 200px; min-height: 200px;
+                border: 1px solid #cccc33;border-radius: 7pt;
+                /*border: 1px solid #cccc33;border-radius: 7pt;background: #dddd88;*/
+                -webkit-flex: 1 6 20%; flex: 1 6 30%;
+                -webkit-order: 2; order: 2;
+                -webkit-align-self: flex-start; align-self: flex-start;
+                display:-webkit-flex;display:flex;flex-flow: column;} 
+            #step1 > maindata input { width:100%;box-sizing : border-box;}
+            #step1 > subdata input:not([type='radio']) { width:100%;box-sizing : border-box;}
+			#signature {flex-flow: row; -webkit-flex-direction: row; flex-direction: row;}
+			#signature .nomsignature{width: 200px;}
+
+            #nav {min-height: 50px; margin: 0; padding: 0; 
+                display: -webkit-flex; display: flex; flex-flow: row;
+                -webkit-flex-direction: row; flex-direction: row;
+                -webkit-justify-content: center; justify-content: center;
+                -webkit-align-items: center; align-items: center;}
+
+            disclaimer { margin: 4px;}      
+            #commentaire, #inscrfamillename, #payeurnom {width: 100%;}
+            #pinscrfamillename {display: none;}
+
+            #preview {background-color:#fff;width:200px;}
+            .cheque_montant{margin: 5px;}
+
+            headerstep2, 
+            headerstep3, 
+            headerstep4 {display: none; margin: 4px; padding: 5px; min-height: 50px;}
+
+            headerstep1, 
+            footer {display: -webkit-flex; display: flex; margin: 4px; padding: 5px; min-height: 50px;}
+
+            .textup {text-transform: uppercase;}
+
+            /* Too narrow to support three columns */
+            @media all and (max-width: 640px) {
+                #step1, #step2, #step3, #step4 {flex-direction: column;}
+                headerstep1, headerstep2, headerstep3, headerstep4, footer {min-height: 50px;max-height: 50px;}
+                #step1 > photo, #step1 > maindata, #step1 > subdata {order: 0;}
+            }
+
+			body select { padding: 5px 30px 5px 10px !important; max-width: 100%; height: auto !important; border: 1px solid #e3e3e3; border-radius: 3px; background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat; background-color: #fff; color: #444444; font-size: 12px; line-height: 16px !important; appearance: none; /* this is must */ -webkit-appearance: none; -moz-appearance: none; } 
+			body select option { padding: 0 4px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>
+                <a href="https://asml-montesson.jimdo.com/" style="border: 0; text-decoration: none; cursor: pointer;">
+                    <img class="myFlexedImage" src="https://u.jimcdn.com/cms/o/s0b7da5ead516c378/emotion/crop/header.jpg?t=1481845558" id="emotion-header-img" alt="">
+                </a><br /> 
+                BULLETIN INSCRIPTION 2017 / 2018
+            </h2>
+            <headerstep1><p><span>Coordonnées</span> (1 bulletin par adhérent)</p></headerstep1>
+            <headerstep2><p><span>Activité(s) choisie(s)</span> (maximum 3)</p></headerstep2>
+            <headerstep3><p><span>Réglement</span> à l’ordre de L’ASML (obligatoire pour valider l’inscription)</p></headerstep3>
+            <headerstep4><p><span>-</span></p></headerstep4>
+            <form id="form1">
+                <div id="step1">
+                    <photo>
+                        <img id="preview" />
+                        <div>
+                            <label id="photolabel" for="photo">Selectionnez votre photo (maximum 1Mo)</label>
+                            <input type="file" id="photo" accept="image/*" onchange="displayUpload();"/>
+                            <button id="uploadPhoto" style="display: none;" > Charger la photo </button> 
+                        </div>
+                    </photo>
+                    <maindata>
+                        <div>
+                            <label for='email'>Email <span class='required'>(*)</span></label>
+                            <input type='email' name='email' id='email' placeholder='you@yourdomain.com' required />
+                        </div>
+                        <div>
+                            <label for='nom'>Nom <span class='required'>(*)</span></label>
+                            <input type='text' class="textup" name='nom' placeholder="Nom de l'adhérent" required />
+                        </div>
+                        <div>
+                            <label for='prenom'>Prénom <span class='required'>(*)</span></label>
+                            <input type='text' class="textup" name='prenom' placeholder="Prénom de l'adhérent" required />
+                        </div>
+                        <div>
+                            <label for='birthdate'>Date de naissance <span class='required'>(*)</span></label>
+                            <input type='date' name='birthdate' required max="2013-12-01" />
+                        </div>
+                        <div>
+                            <label for='telfixe'>Téléphone</label>
+                            <input type='tel' name='telfixe' placeholder='Télèphone fixe' />
+                        </div>
+                        <div>
+                            <label for='tel'>Portable</label>
+                            <input type='tel' name='tel' placeholder='Télèphone portable' />
+                        </div>
+                    </maindata>
+                    <subdata>
+                        <div>
+                            <label for='adresse'>Adresse <span class='required'>(*)</span></label>
+                            <input type='text' name='adresse' placeholder="Adresse " required />
+                        </div>
+                        <div>
+                            <label for='ville'>Ville</label>
+                            <input type="text" name='ville' placeholder="Ville" required />
+                        </div>
+                        <div>
+                            <label for='codepostal'>Code Postal</label>
+                            <input type="text" pattern ="[0-9]{5}" name='codepostal' placeholder="Code postal" required />
+                        </div>
+                        <div>
+                            <label for='adherentprec'>Adhérent année précédente</label>
+                            <input type='checkbox' name='adherentprec' id="adherentprec"/>
+                        </div>
+                        <div>
+                            <label for='nationalite'>Nationalité</label>
+                            <input type="text" name='nationalite' placeholder="Nationalité"/>
+                        </div>
+                        <div>
+                            <label for="sexe">Sexe</label>
+                            <input type='radio' name='sexe' value="F" required >F
+                            <input type='radio' name='sexe' value="M">M
+                        </div>
+                    </subdata>
+                </div>
+		<?= $this->formElement($form->get('ctok')); ?>
+            </form>
+            <form id="form2">
+                <div id="step2" style="display: none;">
+                    <activite>
+                        <label for='section1'>Choix N°1 <span class='required'>(*)</span></label>
+                        <select id='section1' name="section[1]" required>
+                            <option />
+                            <option value='Enfants/Ados'>Enfants / ados</option>
+                            <option value='Adultes'>Adultes</option>
+                            <option value='Seniors'>Seniors</option>
+                        </select>
+                        <select id='activite' name="activite[1]" required>
+                        </select>
+                        <select id='day' name='day[1]' required>
+                        </select>
+                        <input type='text' id='prix' name='prix[1]' placeholder="Prix " disabled/>€
+                    </activite>
+                    <div id="button-step2">
+                        <button id="addactivity" style="display: flex;">Ajouter une activité</button>
+                    </div>
+                    <disclaimer>
+                        Aucune remise ne pourra être déduite sans tampon du Bureau
+                        Les remises ou avoirs ne seront accordés que pour les dossiers complets
+                    </disclaimer>
+                    <annexes>
+                        <div>
+                            <label for="commentaire"><p>Commentaires <span>(contraintes médicales …)</span></p></label>
+                            <textarea name='commentaire' id="commentaire"></textarea>
+                        </div>
+                        <div>
+                            <label for="inscrfamille">Inscription Famille?</label>
+                            <input type='checkbox' name='inscrfamille' id="inscrfamille" value=1 />
+                            <p id="pinscrfamillename">
+                                <label for="inscrfamillename">Nom de l’autre adhérent : </label>
+                                <input type='text' class="textup" id="inscrfamillename" name='inscrfamillename' placeholder="Saisir le nom et le prénom de l'autre adhérent" />
+                            </p>
+                        </div>
+                        <div>
+                            <label for="documentreglement">Demande (joindre enveloppe supplémentaire, timbrée à votre adresse)</label>
+                            <input type='checkbox' name='attestation' value=1 />Attestation
+                            <input type='checkbox' name='facture' value=1 />Facture
+                        </div>
+                    </annexes>
+                </div>
+		<?= $this->formElement($form->get('ctok')); ?>
+            </form>
+            <form id="form3">
+                <div id="step3" style="display: none;">
+                    <div id="payeur">
+                        <label for='payeurnom'>Nom et prénom du payeur <span class='required'>(*)</span></label>
+                        <input type='text' class="textup" id="payeurnom" name='payeurnom' placeholder="Nom et prénom du payeur" required />
+                    </div>
+                    <div id="methodpayment">
+                        <p class="disclaimer">merci de ne pas antidater les chèques. Pour rappel, le montant de vos inscriptions est de <span class="euros" id="montant_total"></span>€</p>
+                        <div>
+                            <input type='radio' name='cheque' value=1 id='paiement' required />
+                            <label for="check1">1 chèque en Novembre </label>
+                        </div>
+                        <div id='cheque_1' style="display: none;">
+                            <div class="cheque_montant" >
+                                <label for="cheque_novembre">Montant Novembre </label>
+                                <input type="text" name="cheque_novembre" id="cheque_novembre_1" required />€
+                            </div>
+                        </div>
+                        <div>
+                            <input type='radio' name='cheque' value=2 id='paiement' />
+                            <label for="cheque_2">2 chèques en Novembre et Janvier</label>
+                        </div>
+                        <div id='cheque_2' style="display: none;">
+                            <div class="cheque_montant" >
+                                <label for="cheque_novembre">Montant Novembre </label>
+                                <input type="text" name="cheque_novembre" id="cheque_novembre_2" required />€
+                            </div>
+                            <div class="cheque_montant" >
+                                <label for="cheque_janvier">Montant Janvier </label>
+                                <input type="text" name="cheque_janvier" id="cheque_janvier_2" />€
+                            </div>
+                        </div>
+                        <div>
+                            <input type='radio' name='cheque' value=3 id='paiement' />
+                            <label for="check3">3 chèques en Novembre, Janvier et Avril</label>
+                        </div>
+                        <div id='cheque_3' style="display: none;">
+                             <div class="cheque_montant" >
+                                <label for="cheque_novembre">Montant Novembre </label>
+                                <input type="text" name="cheque_novembre" id="cheque_novembre_3" required />€
+                            </div>
+                            <div class="cheque_montant" >
+                                <label for="cheque_janvier">Montant Janvier </label>
+                                <input type="text" name="cheque_janvier" id="cheque_janvier_3" />€
+                            </div>
+                            <div class="cheque_montant" >
+                                <label for="cheque_avril">Montant Avril </label>
+                                <input type="text" name="cheque_avril" id="cheque_avril_3" />€
+                            </div>
+                        </div>
+                        <div>
+                            <input type='checkbox' name='cheque_ancv' value=4 id='ancv' />
+                            <label for="cheque_ancv">ANCV (chèque Vacances ou coupon Sport)</label>
+                            <span id="s_montantancv" style="display: none;" >
+                                <input type='text' id='montantancv' name='montantancv' placeholder="Montant chèque ANCV" pattern ="[0-9]{3}" />€
+                            </span>
+                        </div>
+                    </div>
+                </div>
+		<?= $this->formElement($form->get('ctok')); ?>
+            </form>
+            <form id="form4" method="post" action="">
+                <div id="step4" style="display: none;">
+				    <div id="signature">
+                    Je soussigné(e), <input type='text' class="textup" id='nomsignature' name='nomsignature' placeholder="Nom et prénom" required /> déclare avoir pris connaissance de la charte ASML (au verso et sur le site) et en accepter les termes.
+                    </div>
+                </div>
+		<?= $this->formElement($form->get('ctok')); ?>
+            </form>
+            <div id="inscriptionfinie" style="display: none;">
+        Merci pour votre inscription
+            </div>
+            <div id="nav">
+                <button id="prev-step" type="submit" style="display: none;" > Precedent </button>
+                <button id="next-step" type="submit" style="display: flex;"> Suivant </button>
+                <button id="submit" type="submit" class="g-recaptcha" style="display: none;" data-sitekey="6LcWByUUAAAAAEwqzTsVbujogm2j8C43ngRzDqlw" data-callback="captchaFeedback"> Enregistrer </button>
+            </div>
+        </div>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script>
+            var closeBut = '<button class="closing" id="closing" >X</button>';
+            var iMaxFilesize = 1048576; // 1MB
+            var formVars = {};
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var forms = document.querySelectorAll('form');
+                for (var index = forms.length - 1; index >= 0; index--) {
+                    var form = forms[index];
+                    form.noValidate = true;
+                }
+            });
+ 
+            var validateForm = function(submitEvent, form) {
+
+		        var elements = form.elements;
+
+                if (!form.checkValidity()) {
+                    /* Seriously, hold everything. */
+                    submitEvent.preventDefault();
+                    submitEvent.stopImmediatePropagation();
+                    submitEvent.stopPropagation();
+                    for (var index = 0, len = elements.length; index < len; index++) {
+                        var element = elements[index];
+                        if (element.parentNode.getElementsByClassName('validation-message').length > 0) {
+
+                            element.parentNode.removeChild(element.parentNode.getElementsByClassName('validation-message')[0]);
+                        }
+
+                        if (element.willValidate === true && element.validity.valid !== true) {
+                            var message = 'Ce champ est obligatoire - veuillez le remplir ou verifier le format', // element.validationMessage,
+                                parent  = element.parentNode,
+                                div     = document.createElement('div');
+                            div.appendChild(document.createTextNode(message));
+                            div.classList.add('validation-message');
+                            parent.insertBefore(div, element.nextSibling);
+                            element.focus();
+                            break;
+                        }
+                    }
+                } else {
+                    return true;
+                }
+            };
+
+            document.getElementById("addactivity").addEventListener("click", function(e) {
+                e.preventDefault();
+                var activites = document.getElementsByTagName('activite');
+                var itm = activites[0],
+                    butDiv = document.getElementById('button-step2');
+                var cln = itm.cloneNode(true);
+                cln.innerHTML += closeBut;
+                var newPos = activites.length+1;
+                cln.innerHTML = cln.innerHTML.replace("N°1", "N°"+newPos).replace(/section1/g, 'section'+newPos).replace(/section\[1\]/g, 'section['+newPos+']').replace(/activite\[1\]/g, 'activite['+newPos+']').replace(/day\[1\]/g, 'day['+newPos+']').replace(/prix\[1\]/g, 'prix['+newPos+']');
+                document.getElementById("step2").insertBefore(cln, butDiv);
+                cln.querySelector('#section'+newPos).addEventListener("change", bindActivities);
+                var daySelect = cln.querySelector('#day');
+                for(i = daySelect.options.length - 1 ; i >= 0 ; i--) {
+                    daySelect.remove(i);
+                }
+                cln.querySelector('button').addEventListener("click", function(event) {
+                    event.preventDefault();
+                    this.parentNode.parentNode.removeChild(this.parentNode);
+                    var activites = document.getElementsByTagName('activite');
+                    if (activites.length < 3) {
+                    
+                        document.getElementById("addactivity").style.display = 'flex';
+                    }
+                });
+                if (activites.length >= 3) {
+
+                    document.getElementById("addactivity").style.display = 'none';
+                }
+            });
+            document.getElementById('inscrfamille').addEventListener("click", function(e) {
+                
+                if (document.getElementById('inscrfamille').checked) {
+                    document.getElementById('pinscrfamillename').style.display = 'flex';
+                } else {
+                    document.getElementById('pinscrfamillename').style.display = 'none';
+                }
+            });
+            document.getElementById("next-step").addEventListener("click", function(e) {
+                var elementNext = document.getElementById("next-step"),
+                    elementPrev = document.getElementById("prev-step"),
+                    div1 = document.getElementById("step1"),
+                    div2 = document.getElementById("step2"),
+                    div3 = document.getElementById("step3"),
+                    div4 = document.getElementById("step4"),
+                    header1 = document.getElementsByTagName("headerstep1")[0],
+                    header2 = document.getElementsByTagName("headerstep2")[0],
+                    header3 = document.getElementsByTagName("headerstep3")[0],
+                    header4 = document.getElementsByTagName("headerstep4")[0];
+                        
+                e.preventDefault();
+                errorMessages = document.getElementsByClassName('validation-message');
+                for (var index = 0, len = errorMessages.length; index < len; index++) {
+
+                    var element = errorMessages[index];
+                    element.parentNode.removeChild(element);
+                }
+                if (div1.style.display != 'none') {
+                    
+                    if (document.forms['form1'].checkValidity()) {
+
+                        div1.style.display = 'none';
+                        div2.style.display = 'flex';
+                        div3.style.display = 'none';
+                        div4.style.display = 'none';
+                        header1.style.display = 'none';
+                        header2.style.display = 'flex';
+                        header3.style.display = 'none';
+                        header4.style.display = 'none';
+                        for ( var i = 0; i < document.forms['form1'].elements.length; i++ ) {
+                            var e = document.forms['form1'].elements[i];
+                            formVars[ e.name ] = e.value;
+                        }
+                    } else {
+
+			return validateForm(e, document.forms['form1']);
+                    }
+                } else if (div2.style.display != 'none') {
+                                        
+                    if (document.forms['form2'].checkValidity()) {
+
+                        div1.style.display = 'none';
+                        div2.style.display = 'none';
+                        div3.style.display = 'flex';
+                        div4.style.display = 'none';
+                        header1.style.display = 'none';
+                        header2.style.display = 'none';
+                        header3.style.display = 'flex';
+                        header4.style.display = 'none';
+                        for ( var i = 0; i < document.forms['form2'].elements.length; i++ ) {
+                            var e = document.forms['form2'].elements[i];
+                            formVars[ e.name ] = e.value;
+                        }
+                        var prices = document.querySelectorAll('#prix');
+                        formVars['montant_total'] = 0;
+                        for (var index = prices.length - 1; index >= 0; index--) {
+                            formVars[ 'montant_total' ] += parseInt(prices[index].value);
+                        }
+                        document.getElementById('montant_total').innerHTML = formVars['montant_total'];
+
+                        document.getElementById("ancv").addEventListener("change", function(e) {
+
+                            displayBox = 'none';
+                            if (this.checked) {
+
+                                displayBox = 'flex';
+                            }
+                            document.getElementById('s_montantancv').style.display = displayBox;
+                        });
+
+                        paiementRadios = document.querySelectorAll('#paiement');
+                        for (var i = 0; i < paiementRadios.length; i++) {
+                            var self = paiementRadios[i];
+                            self.addEventListener("click", function(e) {
+
+                                items = document.getElementsByName('cheque_novembre');
+                                for(i = 0;i < items.length; i++){
+
+                                    items[i].removeAttribute("required");
+                                }
+
+                                switch (this.value) {
+
+                                    case '1':
+                                        document.getElementById('cheque_1').style.display = 'flex';
+                                        document.getElementById('cheque_2').style.display = 'none';
+                                        document.getElementById('cheque_3').style.display = 'none';
+                                        document.getElementById('cheque_novembre_1').value = formVars['montant_total'];
+                                        document.getElementById('cheque_novembre_1').required = true;
+
+                                        break;
+                                    case '2':
+                                        document.getElementById('cheque_1').style.display = 'none';
+                                        document.getElementById('cheque_2').style.display = 'flex';
+                                        document.getElementById('cheque_3').style.display = 'none';
+
+                                        document.getElementById('cheque_novembre_2').value = Math.floor(formVars['montant_total']/2);
+                                        document.getElementById('cheque_janvier_2').value = Math.ceil(formVars['montant_total']/2);
+                                        document.getElementById('cheque_novembre_2').required=true;
+                                        document.getElementById('cheque_janvier_2').required=true;
+                                        break;
+                                    case '3':
+                                        document.getElementById('cheque_1').style.display = 'none';
+                                        document.getElementById('cheque_2').style.display = 'none';
+                                        document.getElementById('cheque_3').style.display = 'flex';
+
+                                        document.getElementById('cheque_novembre_3').value = Math.floor(formVars['montant_total']/3);
+                                        document.getElementById('cheque_janvier_3').value = Math.floor(formVars['montant_total']/3);
+                                        document.getElementById('cheque_avril_3').value = Math.ceil(formVars['montant_total']/3);
+                                        document.getElementById('cheque_novembre_3').required=true;
+                                        document.getElementById('cheque_janvier_3').required=true;
+                                        document.getElementById('cheque_avril_3').required=true;
+
+                                        break;
+                                }
+                            });
+                        }
+                    } else {
+
+                        return validateForm(e, document.forms['form2']);
+                    }
+                } else {
+                    if (document.forms['form3'].checkValidity()) {
+                        div1.style.display = 'none';
+                        div2.style.display = 'none';
+                        div3.style.display = 'none';
+                        div4.style.display = 'flex';
+                        header1.style.display = 'none';
+                        header2.style.display = 'none';
+                        header3.style.display = 'none';
+                        header4.style.display = 'flex';
+                        for ( var i = 0; i < document.forms['form3'].elements.length; i++ ) {
+                               var e = document.forms['form3'].elements[i];
+                            formVars[ e.name ] = e.value;
+                        }
+                    } else {
+
+			            return validateForm(e, document.forms['form3']);
+                    }
+                }
+                if (div1.style.display != 'none')
+                    elementPrev.style.display = 'none';
+                else
+                    elementPrev.style.display = 'flex';
+                if (div4.style.display != 'none') {
+                    elementNext.style.display = 'none';
+                    document.getElementById("submit").style.display = 'flex';    
+                } else
+                    elementNext.style.display = 'flex';
+            });
+            document.getElementById("prev-step").addEventListener("click", function(e) {
+                e.preventDefault();
+                var elementNext = document.getElementById("next-step"),
+                    elementPrev = document.getElementById("prev-step"),
+                    div4 = document.getElementById("step4"),
+                    div3 = document.getElementById("step3"),
+                    div2 = document.getElementById("step2"),
+                    div1 = document.getElementById("step1"),
+                    header1 = document.getElementsByTagName("headerstep1")[0],
+                    header2 = document.getElementsByTagName("headerstep2")[0],
+                    header3 = document.getElementsByTagName("headerstep3")[0],
+                    header4 = document.getElementsByTagName("headerstep4")[0];
+                        
+                if (div4.style.display != 'none') {
+                    
+                    div1.style.display = 'none';
+                    div2.style.display = 'none';
+                    div3.style.display = 'flex';
+                    div4.style.display = 'none';
+                    header1.style.display = 'none';
+                    header2.style.display = 'none';
+                    header3.style.display = 'flex';
+                    header4.style.display = 'none';
+                } else if ( div3.style.display != 'none') {
+                                        
+                    div1.style.display = 'none';
+                    div2.style.display = 'flex';
+                    div3.style.display = 'none';
+                    div4.style.display = 'none';
+                    header1.style.display = 'none';
+                    header2.style.display = 'flex';
+                    header3.style.display = 'none';
+                    header4.style.display = 'none';
+                } else {
+                                        
+                    div1.style.display = 'flex';
+                    div2.style.display = 'none';
+                    div3.style.display = 'none';
+                    div4.style.display = 'none';
+                    header1.style.display = 'flex';
+                    header2.style.display = 'none';
+                    header3.style.display = 'none';
+                    header4.style.display = 'none';
+                }
+                if (div1.style.display != 'none')
+                    elementPrev.style.display = 'none';
+                else
+                    elementPrev.style.display = 'flex';
+                if (div4.style.display != 'none') {
+                    elementNext.style.display = 'none';
+                    document.getElementById("submit").style.display = 'flex';    
+                } else {
+                    elementNext.style.display = 'flex';
+                    document.getElementById("submit").style.display = 'none'; 
+                }
+            });
+            document.getElementById("submit").addEventListener("click", function(e) {
+                e.preventDefault();
+                var element = document.getElementById("next-step");
+                if (element.style.display != 'none')
+                    element.style.display = 'none';
+
+                if (document.forms['form4'].checkValidity()) {
+                    //console.log(formVars);
+                } else {
+                    return validateForm(e, document.forms['form4']);
+                }
+            });
+            document.getElementById('section1').addEventListener("change", bindActivities);
+
+            function captchaFeedback(token) {
+
+                grecaptcha.execute();
+		var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'postForm.php');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                	if (xhr.status === 200) {
+
+                		document.getElementById('step4').style.display = 'none';
+                		document.getElementById('nav').style.display = 'none';
+                		document.getElementById('inscriptionfinie').style.display = 'flex';
+			}
+		}
+   		xhr.send(JSON.stringify({'formData':formVars})); 
+            }
+
+            function bindActivities(event) {
+                var selectActivity = this.parentNode.querySelectorAll('#activite')[0];
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?=$this->url('asml/sections')?>');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        var activityInfo = JSON.parse(xhr.responseText);
+                        var opt = document.createElement('option');
+                        for(i = selectActivity.options.length - 1 ; i >= 0 ; i--) {
+                            selectActivity.remove(i);
+                        }
+                        selectActivity.appendChild(opt);
+                        for (optKey in activityInfo) {
+
+                            var opt = document.createElement('option');
+                            opt.value = activityInfo[optKey].value;
+                            opt.innerHTML = activityInfo[optKey].html;
+                            selectActivity.appendChild(opt);
+                        }
+                        selectActivity.addEventListener("change", function(e) {
+                            var selectDay = this.parentNode.querySelectorAll('#day')[0]
+                                ,prixActivite = this.parentNode.querySelectorAll('#prix')[0];
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '<?=$this->url('asml/activities')?>');
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.onload = function() {
+                                if (xhr.status === 200) {
+                                    var dayInfo = JSON.parse(xhr.responseText);
+                                    var opt = document.createElement('option');
+                                    for(i = selectDay.options.length - 1 ; i >= 0 ; i--) {
+                                        selectDay.remove(i);
+                                    }
+                                    selectDay.appendChild(opt);
+                                    prixActivite.value = dayInfo[0].prix;
+                                    for (optKey in dayInfo) {
+
+                                       var opt = document.createElement('option');
+                                       opt.value = dayInfo[optKey].value;
+                                       opt.innerHTML = dayInfo[optKey].html;
+                                       selectDay.appendChild(opt);
+                                    }
+                                }
+                            }
+                            xhr.send(JSON.stringify({'activite': this.value}));
+                    });
+                }
+            }
+            xhr.send(JSON.stringify({'section': this.value}));
+        }
+
+        function displayUpload() {
+            var oFile = document.getElementById('photo').files[0];
+            if (oFile.size > iMaxFilesize) {
+                return;
+            }
+            document.getElementById('uploadPhoto').style.display = 'flex'; 
+            document.getElementById('photo').style.display = 'none'; 
+            document.getElementById('photolabel').style.display = 'none'; 
+
+            var oImage = document.getElementById('preview');
+            var oReader = new FileReader();
+            oReader.onload = function(e){
+                oImage.src = e.target.result;    
+            }
+            oReader.readAsDataURL(oFile);
+
+            document.getElementById('uploadPhoto').addEventListener("click", function(e) {
+                e.preventDefault();
+                var oFile = document.getElementById('photo').files[0];
+                var vFD = new FormData();
+                vFD.append('photo', oFile);
+                vFD.append('email', document.getElementById('email').value);
+                var oXHR = new XMLHttpRequest();
+                oXHR.open('POST', 'upload.php');
+                oXHR.onload = function() {
+                    if (oXHR.status === 200) {
+                        var photoInfo = JSON.parse(oXHR.responseText);
+                        if (photoInfo.error) {
+
+                            return;
+                        }
+                        formVars['photo'] = photoInfo.localPath;
+                    }
+                }
+                oXHR.send(vFD);
+            });
+        }
+
+        function replaceValidationUI( form ) {
+            // Suppress the default bubbles
+            form.addEventListener( "invalid", function( event ) {
+                event.preventDefault();
+            }, true );
+
+            // Support Safari, iOS Safari, and the Android browser—each of which do not prevent
+            // form submissions by default
+            form.addEventListener( "submit", function( event ) {
+                if ( !this.checkValidity() ) {
+                    event.preventDefault();
+                }
+            });
+
+            var submitButton = document.querySelector( "#prev-step, #next-step, #submit" );
+            submitButton.addEventListener( "click", function( event ) {
+                var invalidFields = form.querySelectorAll( ":invalid" ),
+                errorMessages = form.querySelectorAll( ".error-message" ),
+                parent;
+
+                // Remove any existing messages
+                for ( var i = 0; i < errorMessages.length; i++ ) {
+                    errorMessages[ i ].parentNode.removeChild( errorMessages[ i ] );
+                }
+
+                for ( var i = 0; i < invalidFields.length; i++ ) {
+                    parent = invalidFields[ i ].parentNode;
+                    parent.insertAdjacentHTML( "beforeend", "<div class='error-message'>" + 
+                    invalidFields[ i ].validationMessage +
+                    "</div>" );
+                }
+
+                // If there are errors, give focus to the first invalid field
+                if ( invalidFields.length > 0 ) {
+                    invalidFields[ 0 ].focus();
+                }
+            });
+        }
+
+        // Replace the validation UI for all forms
+        var forms = document.querySelectorAll( "form" );
+        for ( var i = 0; i < forms.length; i++ ) {
+            replaceValidationUI( forms[ i ] );
+        }
+        </script>    
+    </body>
+</html>
