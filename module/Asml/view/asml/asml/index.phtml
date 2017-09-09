@@ -146,7 +146,7 @@
             <headerstep1><p><span>Coordonnées</span> (1 bulletin par adhérent)</p></headerstep1>
             <headerstep2><p><span>Activité(s) choisie(s)</span> (maximum 3)</p></headerstep2>
             <headerstep3><p><span>Réglement</span> à l’ordre de L’ASML (obligatoire pour valider l’inscription)</p></headerstep3>
-            <headerstep4><p><span>-</span></p></headerstep4>
+            <headerstep4><p><span>Merci pour votre inscription</span></p></headerstep4>
             <form id="form1">
                 <div id="step1">
                     <photo>
@@ -318,7 +318,7 @@
                     <div id="signature">
                     Je soussigné(e), <input type='text' class="textup" id='nomsignature' name='nomsignature' placeholder="Nom et prénom" required /> déclare avoir pris connaissance de la charte ASML (au verso et sur le site) et en accepter les termes.
                     </div>
-                    <div>
+                    <div id="inscrfamillebox" name="inscrfamillebox">
                         <label for="inscrfamille">Inscription Famille?</label>
                         <input type='checkbox' name='inscrfamille' id="inscrfamille" value=1 />
                         <p id="pinscrfamillename">
@@ -329,9 +329,7 @@
                 </div>
                 <?= $this->formElement($form->get('ctok')); ?>
             </form>
-            <div id="inscriptionfinie" style="display: none;">
-            Merci pour votre inscription
-            </div>
+            <div id="inscriptionfinie" style="display: none;"></div>
             <div id="nav">
                 <button id="prev-step" type="submit" style="display: none;" > Precedent </button>
                 <button id="next-step" type="submit" style="display: flex;"> Suivant </button>
@@ -551,6 +549,12 @@
                             header2.style.display = 'none';
                             header3.style.display = 'none';
                             header4.style.display = 'flex';
+
+                            document.getElementById('inscrfamillebox').style.display = 'flex'; 
+                            if (startPos>1) {
+
+                                document.getElementById('inscrfamillebox').style.display = 'none'; 
+                            }
                         }else{
 
                             return;
