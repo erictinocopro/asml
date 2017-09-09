@@ -6,33 +6,49 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\Session\Container;
 use Asml\Service\AsmlGoogleFileInterfaceService ;
 use Asml\Service\AsmlGoogleXLInterfaceService;
 
 class AsmlController extends AsmlAbstractController
 {
 
+    private $config = [];
+
+    /**
+     * Main constructor
+     *
+     * @param array $config
+     *
+     */
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
     public function indexAction()
     {
-	$form = new Form('asml');
- 	$form->add([
+	    $form = new Form('asml');
+ 	    $form->add([
      		'type' => 'Zend\Form\Element\Csrf',
      		'name' => 'ctok',
      		'options' => [
-             		'csrf_options' => [
-                     		'timeout' => 600,
-				'salt' => 'lmsa',
-             		    ],
-     			],
- 		]
-	);
-/*
-$data = $this->params()->fromPost();            
-$form->setData($data);
-var_dump($form->isValid());
-*/
-	return new ViewModel([
+                'csrf_options' => [
+                    'timeout' => 600,
+				    'salt' => 'lmsa',
+                ],
+     		],
+ 		]);
+        /*
+            $data = $this->params()->fromPost();            
+            $form->setData($data);
+            var_dump($form->isValid());
+        */
+
+        $uidGa = $this->config['GA']['ID'];
+	    return new ViewModel([
         	'form' => $form,
+            'uidGA' => $uidGa,
     	]);
     }
 
@@ -77,13 +93,19 @@ var_dump($form->isValid());
 		    }
 		    if (!isset($activitiesList)) {
 		        throw new \Exception('er');
-                    }
+            }
 	    }catch(\Exception $e){
 		    $activitiesList = ["error" => $e->getMessage(),];
 	    }
 	    return $this->renderJson($activitiesList);
     }
 
+    /**
+     * Outputs JSON data with no tpl needed
+     * @param array $data
+     * @param int $httpCode 
+     *
+     */
     private function renderJson(array $data, $httpCode=200)
     {
 	    $json = \Zend\Json\Json::encode($data);
@@ -92,7 +114,7 @@ var_dump($form->isValid());
         $response->setStatusCode($httpCode);
 	    $response->setContent($json);
 	    $response->getHeaders()->addHeaders([
-			    'Content-Type' => 'application/json',
+			'Content-Type' => 'application/json',
 	    ]);
 	    return $this->response;
     }
@@ -107,9 +129,14 @@ var_dump($form->isValid());
 				    $json = \Zend\Json\Json::decode($postData, \Zend\Json\Json::TYPE_OBJECT); 
                     if (!empty($json->currentPos)&&!empty($json->currentStep)) {
 
-                        $sessionContainer = $this->getServiceManager();
-                        $sessionContainer->formData[$json->currentPos][$json->currentStep] = (array)$json->formData;
-                        $answer = [];
+                        $container = $this->getServiceManager();
+                        $sessionContainer = $container->get('UserRegistration');
+                        if ($json->currentPos==1&&$json->currentStep=='step1'){
+
+                            $sessionContainer->formData = [];
+                        }
+                        $sessionContainer->formData['pos'.$json->currentPos] = [$json->currentStep => (array)$json->formData];
+                        $answer = $sessionContainer->formData;
                         if ($json->currentStep=='step4'){
 
                             $answer = $sessionContainer->formData;
@@ -138,7 +165,8 @@ var_dump($form->isValid());
 				    $json = \Zend\Json\Json::decode($postData, \Zend\Json\Json::TYPE_OBJECT); 
 
                     if (!empty($json->currentPos)&&!empty($json->currentStep)) {
-                        $sessionContainer = $this->getServiceManager();
+                        $container = $this->getServiceManager();
+                        $sessionContainer = $container->get('UserRegistration');
                         unset($sessionContainer->formData[$json->currentPos][$json->currentStep]);
                         return $this->renderJson([]);
                     }
