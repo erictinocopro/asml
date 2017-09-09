@@ -550,7 +550,7 @@
                             header3.style.display = 'none';
                             header4.style.display = 'flex';
 
-                            document.getElementById('inscrfamillebox').style.display = 'flex'; 
+                            document.getElementById('inscrfamillebox').style.display = 'bloc'; 
                             if (startPos>1) {
 
                                 document.getElementById('inscrfamillebox').style.display = 'none'; 
@@ -971,39 +971,44 @@
                             items[i].removeAttribute("required");
                         }
 
+                        var currAmount = 0;
+                        if (formVars['montant_total']>parseInt(document.getElementById('montantancv').value)) {
+
+                            currAmount = formVars['montant_total']-parseInt(document.getElementById('montantancv').value);
+                        }
                         switch (this.value) {
 
-                        case '1':
-                            document.getElementById('cheque_1').style.display = 'flex';
-                            document.getElementById('cheque_2').style.display = 'none';
-                            document.getElementById('cheque_3').style.display = 'none';
-                            document.getElementById('cheque_novembre_1').value = formVars['montant_total'];
-                            document.getElementById('cheque_novembre_1').required = true;
+                            case '1':
+                                document.getElementById('cheque_1').style.display = 'flex';
+                                document.getElementById('cheque_2').style.display = 'none';
+                                document.getElementById('cheque_3').style.display = 'none';
+                                document.getElementById('cheque_novembre_1').value = currAmount;
+                                document.getElementById('cheque_novembre_1').required = true;
 
-                            break;
-                        case '2':
-                            document.getElementById('cheque_1').style.display = 'none';
-                            document.getElementById('cheque_2').style.display = 'flex';
-                            document.getElementById('cheque_3').style.display = 'none';
+                                break;
+                            case '2':
+                                document.getElementById('cheque_1').style.display = 'none';
+                                document.getElementById('cheque_2').style.display = 'flex';
+                                document.getElementById('cheque_3').style.display = 'none';
 
-                            document.getElementById('cheque_novembre_2').value = Math.floor(formVars['montant_total']/2);
-                            document.getElementById('cheque_janvier_2').value = Math.ceil(formVars['montant_total']/2);
-                            document.getElementById('cheque_novembre_2').required=true;
-                            document.getElementById('cheque_janvier_2').required=true;
-                            break;
-                        case '3':
-                            document.getElementById('cheque_1').style.display = 'none';
-                            document.getElementById('cheque_2').style.display = 'none';
-                            document.getElementById('cheque_3').style.display = 'flex';
+                                document.getElementById('cheque_novembre_2').value = Math.floor(currAmount/2);
+                                document.getElementById('cheque_janvier_2').value = Math.ceil(currAmount/2);
+                                document.getElementById('cheque_novembre_2').required=true;
+                                document.getElementById('cheque_janvier_2').required=true;
+                                break;
+                            case '3':
+                                document.getElementById('cheque_1').style.display = 'none';
+                                document.getElementById('cheque_2').style.display = 'none';
+                                document.getElementById('cheque_3').style.display = 'flex';
 
-                            document.getElementById('cheque_novembre_3').value = Math.floor(formVars['montant_total']/3);
-                            document.getElementById('cheque_janvier_3').value = Math.floor(formVars['montant_total']/3);
-                            document.getElementById('cheque_avril_3').value = Math.ceil(formVars['montant_total']/3);
-                            document.getElementById('cheque_novembre_3').required=true;
-                            document.getElementById('cheque_janvier_3').required=true;
-                            document.getElementById('cheque_avril_3').required=true;
+                                document.getElementById('cheque_novembre_3').value = Math.floor(currAmount/3);
+                                document.getElementById('cheque_janvier_3').value = Math.floor(currAmount/3);
+                                document.getElementById('cheque_avril_3').value = Math.ceil(currAmount/3);
+                                document.getElementById('cheque_novembre_3').required=true;
+                                document.getElementById('cheque_janvier_3').required=true;
+                                document.getElementById('cheque_avril_3').required=true;
 
-                            break;
+                                break;
                         }
                     });
                 }

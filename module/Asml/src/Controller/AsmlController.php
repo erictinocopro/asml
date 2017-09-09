@@ -148,9 +148,26 @@ class AsmlController extends AsmlAbstractController
 
                                 return $this->renderJson((array)$storageAnswer, 403);
                             }
+                            if (!empty($sessionContainer->formData['pos1']['step4']['cheque_novembre'])) {
+
+                                $reglement .= '<br /> - un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_novembre']).'€';
+                            }
+                            if (!empty($sessionContainer->formData['pos1']['step4']['cheque_janvier'])) {
+
+                                $reglement .= '<br /> - un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_janvier']).'€';
+                            }
+                            if (!empty($sessionContainer->formData['pos1']['step4']['cheque_avril'])) {
+
+                                $reglement .= '<br /> - un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_avril']).'€';
+                            }
+                            if (!empty($sessionContainer->formData['pos1']['step4']['montantancv'])) {
+
+                                $reglement .= '<br />'.intval($sessionContainer->formData['pos1']['step4']['montantancv']).'€ en chèque vacances ou coupon sport';
+                            }
                             $sendemailService = $this->getServiceManager()->get('Service\SendEmail');
                             $recipient = [[ 'Email' => $sessionContainer->formData['pos1']['step4']['email'], ],];
-                            $emailVariables = [ 'prenom' => $sessionContainer->formData['pos1']['step4']['prenom'],];
+                            $emailVariables = [ 'prenom' => $sessionContainer->formData['pos1']['step4']['prenom'],
+                            'reglement' => $reglement ];
 					        $response = $sendemailService->sendEmail($recipient, $emailVariables);
                         }
                         return $this->renderJson($answer);
