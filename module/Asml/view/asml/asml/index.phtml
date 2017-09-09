@@ -335,7 +335,7 @@
             <div id="nav">
                 <button id="prev-step" type="submit" style="display: none;" > Precedent </button>
                 <button id="next-step" type="submit" style="display: flex;"> Suivant </button>
-                <button id="submit" type="submit" class="g-recaptcha" style="display: none;" data-sitekey="6LcWByUUAAAAAEwqzTsVbujogm2j8C43ngRzDqlw" data-callback="captchaFeedback"> Enregistrer </button>
+                <button id="submit" type="submit" class="g-recaptcha" style="display: none;" data-sitekey="<?=$googleCaptcha?>" data-callback="captchaFeedback"> Enregistrer </button>
                 <div class="spinner-action" id="spinner-action">
                     <div class="rect1"></div>
                     <div class="rect2"></div>
@@ -1007,7 +1007,11 @@
 
             function refreshAmounts(event) {
 
-                var newAmount = formVars['montant_total']-parseInt(event.target.value);
+                var newAmount = 0;
+                if (formVars['montant_total']>parseInt(event.target.value)) {
+
+                    newAmount = formVars['montant_total']-parseInt(event.target.value);
+                }
 
                 document.getElementById('cheque_novembre_1').value = newAmount;
 
@@ -1017,6 +1021,11 @@
                 document.getElementById('cheque_novembre_3').value = Math.floor(newAmount/3);
                 document.getElementById('cheque_janvier_3').value = Math.floor(newAmount/3);
                 document.getElementById('cheque_avril_3').value = Math.ceil(newAmount/3);
+
+                if (formVars['montant_total']<parseInt(event.target.value)) {
+
+                    event.target.value = formVars['montant_total'];
+                }
             }
         </script>    
     </body>

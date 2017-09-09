@@ -46,9 +46,11 @@ class AsmlController extends AsmlAbstractController
         */
 
         $uidGa = $this->config['GA']['ID'];
+        $googleCaptcha = $this->config['googleCaptcha'];
 	    return new ViewModel([
         	'form' => $form,
             'uidGA' => $uidGa,
+            'googleCaptcha' => $googleCaptcha,
     	]);
     }
 
@@ -139,12 +141,17 @@ class AsmlController extends AsmlAbstractController
                         $answer = $sessionContainer->formData;
                         if ($json->currentStep=='step4'){
 
-                            $answer = $sessionContainer->formData;
+                            $answer = [];
                             $storageAnswer = $this->storeDataGoogle($sessionContainer->formData);
+
                             if (true!==$storageAnswer) {
 
                                 return $this->renderJson((array)$storageAnswer, 403);
                             }
+                            $sendemailService = $this->getServiceManager()->get('Service\SendEmail');
+                            $recipient = [[ 'Email' => $sessionContainer->formData['pos1']['step4']['email'], ],];
+                            $emailVariables = [ 'prenom' => $sessionContainer->formData['pos1']['step4']['prenom'],];
+					        $response = $sendemailService->sendEmail($recipient, $emailVariables);
                         }
                         return $this->renderJson($answer);
                     }

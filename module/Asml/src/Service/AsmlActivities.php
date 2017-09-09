@@ -9,11 +9,11 @@ use Zend\Log\LoggerInterface;
 class AsmlActivities extends AsmlAbstractService implements EventManagerAwareInterface
 {
 
-    	protected $logger;
+    protected $logger;
 
-    	public function __construct(
-    	) {
-    	}
+    public function __construct() 
+    {
+    }
 
 	public function getSections($inputSectionType)
 	{

@@ -14,10 +14,12 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            Service\AsmlActivities::class => InvokableFactory::class,
+            Service\AsmlActivities::class => Service\Factory\AsmlActivitiesFactory::class,
+            Service\SendEmail::class => Service\Factory\SendEmailFactory::class,
         ],
         'aliases' => [
             'Service\AsmlActivities' => Service\AsmlActivities::class,
+            'Service\SendEmail' => Service\SendEmail::class,
         ],
     ],
     'router' => include 'routes.config.php',
