@@ -49,9 +49,6 @@ class AsmlGoogleXLInterfaceService
     {
         try {
 
-            $worksheetKeys = array_keys($results[0]);
-            $newWorksheet = $this->createAndGetNewWorksheet(count($results), $worksheetKeys);
-
             $googleClient = $this->getGoogleClient();
             $service = new \Google_Service_Sheets($googleClient);
             $spreadsheetId = $this->configArr['google']['spreadsheetKey'];
@@ -65,7 +62,7 @@ class AsmlGoogleXLInterfaceService
                 , $this->configArr['google']['worksheet']
                 , $valueRange
                 , ["valueInputOption" => $valueInputOption]
-                , ['insertDataOption' => INSERT_ROWS]
+                , ['insertDataOption' => 'INSERT_ROWS']
             );
         } catch (\Exception $e) {
 
