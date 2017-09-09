@@ -235,7 +235,8 @@
                     </div>
                     <disclaimer>
                         Aucune remise ne pourra être déduite sans tampon du Bureau
-                        Les remises ou avoirs ne seront accordés que pour les dossiers complets
+                        Les remises ou avoirs ne seront accordés que pour les dossiers complets.
+                        Les conditions d'application des remises sont consultables <a href="<?=$rebateConditions?>">ici</a>  
                     </disclaimer>
                     <annexes>
                         <div>
@@ -329,7 +330,33 @@
                 </div>
                 <?= $this->formElement($form->get('ctok')); ?>
             </form>
-            <div id="inscriptionfinie" style="display: none;"></div>
+            <div id="inscriptionfinie" style="display: none;">
+                <p>
+                    <span>les documents à remettre sont disponibles via les liens ci dessous :</span>
+                    <ul>
+                        <li>
+                            <a href="https://asml-montesson.jimdo.com/app/download/9111246985/Bulletin+INSCRIPTION+ASML+2017-2018.pdf?t=1497531244">
+                                <span>Bulletin inscription 2017-2018<span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://asml-montesson.jimdo.com/app/download/8675544085/Licence+pratiquant+2017-2018.pdf?t=1497531244">
+                                <span>LICENCE PRATIQUANT 2017-2018 à signer recto et verso<span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://asml-montesson.jimdo.com/app/download/8675598385/licence+famille+2017-2018.pdf?t=1497531244">
+                                <span>LICENCE FAMILLE à signer et remplir en 3 exemplaires<span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://asml-montesson.jimdo.com/app/download/9140823985/questionnaire+sant%C3%A9+2017+a+signer.pdf?t=1497531244">
+                                <span>Pour les adhérents 2016-2017 ayant fourni un certificat médical daté de septembre 2016<span>
+                            </a>
+                        </li>
+                    </ul>
+                </p>
+            </div>
             <div id="nav">
                 <button id="prev-step" type="submit" style="display: none;" > Precedent </button>
                 <button id="next-step" type="submit" style="display: flex;"> Suivant </button>
@@ -439,7 +466,13 @@
                     butDiv = document.getElementById('button-step2');
                 var cln = itm.cloneNode(true);
                 cln.innerHTML += closeBut;
-                var newPos = activites.length+1;
+                var newPos = activites.length+1,
+                    pctRebate = 30;
+                if (newPos>2) {
+
+                    pctRebate = 40;
+                }
+                cln.innerHTML += '<div id="rebate"><span>remise de '+pctRebate+'%</span><div>';
                 cln.innerHTML = cln.innerHTML.replace("N°1", "N°"+newPos).replace(/section1/g, 'section'+newPos).replace(/section\[1\]/g, 'section['+newPos+']').replace(/activite\[1\]/g, 'activite['+newPos+']').replace(/day\[1\]/g, 'day['+newPos+']').replace(/prix\[1\]/g, 'prix['+newPos+']');
                 document.getElementById("step2").insertBefore(cln, butDiv);
                 cln.querySelector('#section'+newPos).addEventListener("change", bindActivities);
@@ -518,7 +551,15 @@
                             formVars['montant_total'] = 0;
                         }
                         for (var index = prices.length - 1; index >= 0; index--) {
-                            formVars[ 'montant_total' ] += parseInt(prices[index].value);
+                            rebateFactor = 1;
+                            if (index==2) {
+
+                                rebateFactor = 0.6;
+                            }
+                            if (index==1) {
+                                rebateFactor = 0.7;
+                            }
+                            formVars[ 'montant_total' ] += Math.floor(parseInt(prices[index].value)*rebateFactor);
                         }
                         if(false!==saveData('step2', startPos, formVars)) {
 
@@ -971,7 +1012,7 @@
                             items[i].removeAttribute("required");
                         }
 
-                        var currAmount = 0;
+                        var currAmount = formVars['montant_total'];
                         if (formVars['montant_total']>parseInt(document.getElementById('montantancv').value)) {
 
                             currAmount = formVars['montant_total']-parseInt(document.getElementById('montantancv').value);

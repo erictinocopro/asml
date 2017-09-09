@@ -47,10 +47,12 @@ class AsmlController extends AsmlAbstractController
 
         $uidGa = $this->config['GA']['ID'];
         $googleCaptcha = $this->config['googleCaptcha'];
+        $rebateConditions = $this->config['rebateConditionsLink'];
 	    return new ViewModel([
         	'form' => $form,
             'uidGA' => $uidGa,
             'googleCaptcha' => $googleCaptcha,
+            'rebateConditions' => $rebateConditions,
     	]);
     }
 
