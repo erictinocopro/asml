@@ -150,22 +150,24 @@ class AsmlController extends AsmlAbstractController
 
                                 return $this->renderJson((array)$storageAnswer, 403);
                             }
+                            $reglement = '<ul>';
                             if (!empty($sessionContainer->formData['pos1']['step4']['cheque_novembre'])) {
 
-                                $reglement .= '<br /> - un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_novembre']).'€';
+                                $reglement .= '<li>un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_novembre']).'€</li>';
                             }
                             if (!empty($sessionContainer->formData['pos1']['step4']['cheque_janvier'])) {
 
-                                $reglement .= '<br /> - un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_janvier']).'€';
+                                $reglement .= '<li>un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_janvier']).'€</li>';
                             }
                             if (!empty($sessionContainer->formData['pos1']['step4']['cheque_avril'])) {
 
-                                $reglement .= '<br /> - un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_avril']).'€';
+                                $reglement .= '<li>un chèque de '.intval($sessionContainer->formData['pos1']['step4']['cheque_avril']).'€</li>';
                             }
                             if (!empty($sessionContainer->formData['pos1']['step4']['montantancv'])) {
 
-                                $reglement .= '<br />'.intval($sessionContainer->formData['pos1']['step4']['montantancv']).'€ en chèque vacances ou coupon sport';
+                                $reglement .= '<li>'.intval($sessionContainer->formData['pos1']['step4']['montantancv']).'€ en chèque vacances ou coupon sport</li>';
                             }
+                            $reglement .= '</ul>';
                             $sendemailService = $this->getServiceManager()->get('Service\SendEmail');
                             $recipient = [[ 'Email' => $sessionContainer->formData['pos1']['step4']['email'], ],];
                             $emailVariables = [ 'prenom' => $sessionContainer->formData['pos1']['step4']['prenom'],
@@ -273,12 +275,16 @@ class AsmlController extends AsmlAbstractController
             $numberCells = $numberCells - 26;
         }
 
+        $spreadsheetKey = $this->config['googleSpreadsheet']['spreadsheetKey'];
+        $worksheet = $this->config['googleSpreadsheet']['worksheet'];
+        $worksheetStartCell = $this->config['googleSpreadsheet']['worksheetStartCell'];
+        $spreadsheetkeyFilePath = $this->config['googleSpreadsheet']['spreadsheetkeyFilePath'];
         $configArr = [ 'google' => 
             [ 
-                'spreadsheetKey' => '1Bi2oPai5F9XgT1Y51uYB4PXyj3sxAo_kai9JLAFOO9Q', # ID of the google spreasheet file
-                'worksheet' => 'data1', # name of the worksheet to work with
-                'worksheet-data-cells-range' => 'A5:'.$endLetter, # the range of data cells (excluding header cells) - for example A2:AH - it hsould not include the right bottom cell row number, as it is calculated based on the data
-                'auth' => [ 'service-accounts' => [ 'spreadsheet' => [ 'keyFilePath' => __DIR__.'/../../../../config/ASML-spreadsheet-03635eeac513.json', ], ], ], #  path to service account JSON file
+                'spreadsheetKey' => $spreadsheetKey, # ID of the google spreasheet file
+                'worksheet' => $worksheet, # name of the worksheet to work with
+                'worksheet-data-cells-range' => $worksheetStartCell.':'.$endLetter, # the range of data cells (excluding header cells) - for example A2:AH - it hsould not include the right bottom cell row number, as it is calculated based on the data
+                'auth' => [ 'service-accounts' => [ 'spreadsheet' => [ 'keyFilePath' => $spreadsheetkeyFilePath, ], ], ], #  path to service account JSON file
             ],
         ];
         $asmlService = new AsmlGoogleXLInterfaceService( $configArr );

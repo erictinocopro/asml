@@ -48,8 +48,8 @@ class SendEmail extends AsmlAbstractService
             return $response->success();
         } catch (\Exception $exception) {
 
-            $logger = $mjConfig = $this->getServiceManager()->getLogger(); 
-            $logger->log('Exception occured ' . $exception->getMessage());
+            //$logger->log('Exception occured ' . $exception->getMessage());
+            return false;
         }
     }
 }

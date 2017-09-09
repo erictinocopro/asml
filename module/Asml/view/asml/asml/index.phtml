@@ -518,7 +518,10 @@
                         for ( var i = 0; i < document.forms['form1'].elements.length; i++ ) {
 
                             var e = document.forms['form1'].elements[i];
-                            formVars[ e.name ] = e.value;
+                            if (e.disabled == 'undefined' || e.disabled == false) {
+
+                                formVars[ e.name ] = e.value;
+                            }
                         }
                         if (false!==saveData('step1', startPos, formVars)) {
 
@@ -542,8 +545,12 @@
                     if (document.forms['form2'].checkValidity()) {
 
                         for ( var i = 0; i < document.forms['form2'].elements.length; i++ ) {
+
                             var e = document.forms['form2'].elements[i];
-                            formVars[ e.name ] = e.value;
+                            if (e.disabled == 'undefined' || e.disabled == false) {
+
+                                formVars[ e.name ] = e.value;
+                            }
                         }
                         var prices = document.querySelectorAll('#prix');
                         if (startPos==1) {
@@ -578,7 +585,10 @@
                         
                         for ( var i = 0; i < document.forms['form3'].elements.length; i++ ) {
                             var e = document.forms['form3'].elements[i];
-                            formVars[ e.name ] = e.value;
+                            if (e.disabled == 'undefined' || e.disabled == false) {
+
+                                formVars[ e.name ] = e.value;
+                            }
                         }
                         if (false!==saveData('step3', startPos, formVars)) {
 
@@ -1013,7 +1023,8 @@
                         }
 
                         var currAmount = formVars['montant_total'];
-                        if (formVars['montant_total']>parseInt(document.getElementById('montantancv').value)) {
+                        if (parseInt(document.getElementById('montantancv').value)
+                            && formVars['montant_total']>parseInt(document.getElementById('montantancv').value)) {
 
                             currAmount = formVars['montant_total']-parseInt(document.getElementById('montantancv').value);
                         }
@@ -1026,6 +1037,15 @@
                                 document.getElementById('cheque_novembre_1').value = currAmount;
                                 document.getElementById('cheque_novembre_1').required = true;
 
+                                this.checked = true;
+                                document.getElementById('paiement2').checked = false;
+                                document.getElementById('paiement3').checked = false;
+                                document.getElementById('cheque_novembre_3').disabled = true;
+                                document.getElementById('cheque_janvier_3').disabled = true;
+                                document.getElementById('cheque_avril_3').disabled = true;
+                                document.getElementById('cheque_novembre_2').disabled = true;
+                                document.getElementById('cheque_janvier_2').disabled = true;
+
                                 break;
                             case '2':
                                 document.getElementById('cheque_1').style.display = 'none';
@@ -1036,6 +1056,15 @@
                                 document.getElementById('cheque_janvier_2').value = Math.ceil(currAmount/2);
                                 document.getElementById('cheque_novembre_2').required=true;
                                 document.getElementById('cheque_janvier_2').required=true;
+
+                                this.checked = true;
+                                document.getElementById('paiement1').checked = false;
+                                document.getElementById('paiement3').checked = false;
+                                document.getElementById('cheque_novembre_3').disabled = true;
+                                document.getElementById('cheque_janvier_3').disabled = true;
+                                document.getElementById('cheque_avril_3').disabled = true;
+                                document.getElementById('cheque_novembre_1').disabled = true;
+
                                 break;
                             case '3':
                                 document.getElementById('cheque_1').style.display = 'none';
@@ -1048,6 +1077,13 @@
                                 document.getElementById('cheque_novembre_3').required=true;
                                 document.getElementById('cheque_janvier_3').required=true;
                                 document.getElementById('cheque_avril_3').required=true;
+
+                                this.checked = true;
+                                document.getElementById('paiement1').checked = false;
+                                document.getElementById('paiement2').checked = false;
+                                document.getElementById('cheque_novembre_1').disabled = true;
+                                document.getElementById('cheque_novembre_2').disabled = true;
+                                document.getElementById('cheque_janvier_2').disabled = true;
 
                                 break;
                         }
