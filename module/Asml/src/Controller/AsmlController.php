@@ -125,13 +125,34 @@ class AsmlController extends AsmlAbstractController
 
     public function saveDataAction()
     {
+
+        $form = new Form('asml');
+ 	    $form->add([
+     		'type' => 'Zend\Form\Element\Csrf',
+     		'name' => 'ctok',
+     		'options' => [
+                'csrf_options' => [
+                    'timeout' => 600,
+				    'salt' => 'lmsa',
+                ],
+     		],
+ 		]);
+
         try{
+
 		    $request = $this->getRequest();
 		    if ($request->isPost()){
+
 			    $postData = $request->getContent(); 
 			    if ($postData != null){
 				    $json = \Zend\Json\Json::decode($postData, \Zend\Json\Json::TYPE_OBJECT); 
                     if (!empty($json->currentPos)&&!empty($json->currentStep)) {
+
+                        $form->setData((array)$json->formData);
+                        if (!$form->isValid()){
+
+                            throw new \Exception('Form not valid');
+                        }
 
                         $container = $this->getServiceManager();
                         $sessionContainer = $container->get('UserRegistration');
@@ -176,9 +197,14 @@ class AsmlController extends AsmlAbstractController
                         }
                         return $this->renderJson($answer);
                     }
+                    throw new \Exception('malformed data');
 			    }
+                throw new \Exception('Empty data');
 		    }
-	    }catch(\Exception $e){
+            throw new \Exception('not allowed');
+        }catch(\Exception $e){
+
+            $json = ['error' => $e->getMessage(),];
 	    }
         return $this->renderJson([$json], 503);
     }
@@ -306,5 +332,39 @@ class AsmlController extends AsmlAbstractController
             $result = $result && $asmlService->publishRow($results);
         }
         return $result;
+    }
+
+    public function authenticateUserAction()
+    {
+
+        $form = new Form('asml-authen');
+ 	    $form->add([
+     		'type' => 'Zend\Form\Element\Csrf',
+     		'name' => 'ctok',
+     		'options' => [
+                'csrf_options' => [
+                    'timeout' => 600,
+				    'salt' => 'lmsa',
+                ],
+     		],
+ 		]);
+
+        try{
+		    $request = $this->getRequest();
+		    if ($request->isPost()){
+
+			    $postData = $request->getContent(); 
+			    if ($postData != null){
+
+				    $json = \Zend\Json\Json::decode($postData, \Zend\Json\Json::TYPE_OBJECT);
+
+                    $authenPayload = [];
+			    }
+		    }
+	    }catch(\Exception $e){
+
+		    $authenPayload = ["error"    =>  $e->getMessage(),];
+	    }
+	    return $this->renderJson($authenPayload); 
     }
 }

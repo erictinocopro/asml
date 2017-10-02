@@ -557,14 +557,27 @@
                             
                             formVars['montant_total'] = 0;
                         }
+                        rebateFactor = 1;
                         for (var index = prices.length - 1; index >= 0; index--) {
-                            rebateFactor = 1;
-                            if (index==2) {
+                            //rebateFactor = 1;
+                            // Not 1st iteration and no module
+                            if (index < (prices.length - 1) && 0 == prices[index].dataset.module) {
+                                
+                                if (rebateFactor == 0.7) {
 
-                                rebateFactor = 0.6;
+                                    rebateFactor = 0.6;
+                                } else {
+                                
+                                    rebateFactor = 0.7;
+                                }
                             }
-                            if (index==1) {
-                                rebateFactor = 0.7;
+                            // Global price 
+                            modulePrice = Math.floor(parseInt(prices[index].value)*rebateFactor);
+                            // Already paid licence once
+                            if (1== prices[index].dataset.module && formVars[ 'montant_total' ] >0) {
+
+                                // Remove licence fee for many modules 
+                                modulePrice = Math.floor(parseInt(prices[index].value)-30);
                             }
                             formVars[ 'montant_total' ] += Math.floor(parseInt(prices[index].value)*rebateFactor);
                         }
@@ -780,6 +793,10 @@
                                     }
                                     selectDay.appendChild(opt);
                                     prixActivite.value = dayInfo[0].prix;
+                                    if (dayInfo[0].module === true) {
+
+                                        prixActivite.dataset.module = 1;
+                                    }
                                     for (optKey in dayInfo) {
 
                                         var opt = document.createElement('option');

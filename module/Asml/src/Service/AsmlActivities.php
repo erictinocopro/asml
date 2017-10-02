@@ -126,7 +126,7 @@ class AsmlActivities extends AsmlAbstractService implements EventManagerAwareInt
 		$activite['Danse Orientale'][] = [ 'value' => base64_encode('Vendredi-20h30 à 21h45 -Gymnase Théophile Roussel  '), 'html' => 'Le Vendredi de 20h30 à 21h45  - Gymnase Théophile Roussel', 'prix' => 249, ];
 		$activite['Sunday Mix 1 Ados Cardio-Renfo (Zumba, Dance Fit, Piloxing…)'][] = [ 'value' => base64_encode('Dimanche-10h30-11h30-Gymnase Ferdinand Buisson'), 'html' => 'Le Dimanche de 10h30-11h30 - Gymnase Ferdinand Buisson', 'prix' => 198, ];
 		$activite['Sunday Mix 2 Adox Renfo-Gainage (Pilate, Body zen, Circuit training…)'][] = [ 'value' => base64_encode('Dimanche-11h30-12h30-Gymnase Ferdinand Buisson'), 'html' => 'Le Dimanche de 11h30-12h30 - Gymnase Ferdinand Buisson', 'prix' => 198, ];
-		$activite['Préparation aux examens (10 séances) A compter de Mars'][] = [ 'value' => base64_encode('Mercredi-17h à 18h -Salle Flow'), 'html' => 'Le Mercredi de 17h à 18h  - Salle Flow', 'prix' => 150, ];
+		$activite['Préparation aux examens (10 séances) A compter de Mars'][] = [ 'value' => base64_encode('Mercredi-17h à 18h -Salle Flow'), 'html' => 'Le Mercredi de 17h à 18h  - Salle Flow', 'prix' => 150, 'module' => true, ];
 		$activite['Capoiera'][] = [ 'value' => base64_encode('Jeudi-19h à 20h30-Dojo Cosec Pablo Picasso'), 'html' => 'Le Jeudi de 19h à 20h30 - Dojo Cosec Pablo Picasso', 'prix' => 228, ];
 		$activite['Danse Orientale'][] = [ 'value' => base64_encode('Vendredi-20h30 à 21h45 -Gymnase Théophile Roussel  '), 'html' => 'Le Vendredi de 20h30 à 21h45  - Gymnase Théophile Roussel', 'prix' => 249, ];
 		$activite['Box\'Fit'][] = [ 'value' => base64_encode('Mardi-19h30 à 20h30 -Dojo Cosec Pablo Picasso'), 'html' => 'Le Mardi de 19h30 à 20h30  - Dojo Cosec Pablo Picasso', 'prix' => 198, ];
@@ -163,10 +163,10 @@ class AsmlActivities extends AsmlAbstractService implements EventManagerAwareInt
 		$activite['Gym Oxygène (Marche et Renfo)'][] = [ 'value' => base64_encode('Mercredi-9h30 à 10h30-Quai de Seine/Parcours santé'), 'html' => 'Le Mercredi de 9h30 à 10h30 - Quai de Seine/Parcours santé', 'prix' => 198, ];
 		$activite['Gym Oxygène (Marche et Renfo)'][] = [ 'value' => base64_encode('Dimanche-10h30 à 11h30-Quai de Seine/Parcours santé'), 'html' => 'Le Dimanche de 10h30 à 11h30 - Quai de Seine/Parcours santé', 'prix' => 198, ];
 		$activite['Marche Nordique'][] = [ 'value' => base64_encode('Samedi-10h30 à 12h-Forêt de Maisons Laffitte'), 'html' => 'Le Samedi de 10h30 à 12h - Forêt de Maisons Laffitte', 'prix' => 198, ];
-		$activite['Salsa, Tango argentin, Rock, Bachata (4 séances)'][] = [ 'value' => base64_encode('Dimanche-10h à 13h-Gymnase Théophile Roussel  '), 'html' => 'Le Dimanche de 10h à 13h - Gymnase Théophile Roussel', 'prix' => 80, ];
+		$activite['Salsa, Tango argentin, Rock, Bachata (4 séances)'][] = [ 'value' => base64_encode('Dimanche-10h à 13h-Gymnase Théophile Roussel  '), 'html' => 'Le Dimanche de 10h à 13h - Gymnase Théophile Roussel', 'prix' => 80, 'module' => true, ];
 		$activite['Relaxation musculaire et Equilibre'][] = [ 'value' => base64_encode('Jeudi-20h15 à 22h15-Salle Léon Morane'), 'html' => 'Le Jeudi de 20h15 à 22h15 - Salle Léon Morane', 'prix' => 228, ];
-		$activite['Sophrologie niveau 1 (12 séances)'][] = [ 'value' => base64_encode('Samedi-10h15 à 11h15-Salle Flow'), 'html' => 'Le Samedi de 10h15 à 11h15 - Salle Flow', 'prix' => 180, ];
-		$activite['Sophrologie niveau 2 (12 séances)'][] = [ 'value' => base64_encode('Samedi-11h30 à 12h30-Salle Flow'), 'html' => 'Le Samedi de 11h30 à 12h30 - Salle Flow', 'prix' => 180, ];
+		$activite['Sophrologie niveau 1 (12 séances)'][] = [ 'value' => base64_encode('Samedi-10h15 à 11h15-Salle Flow'), 'html' => 'Le Samedi de 10h15 à 11h15 - Salle Flow', 'prix' => 180, 'module' => true, ];
+		$activite['Sophrologie niveau 2 (12 séances)'][] = [ 'value' => base64_encode('Samedi-11h30 à 12h30-Salle Flow'), 'html' => 'Le Samedi de 11h30 à 12h30 - Salle Flow', 'prix' => 180, 'module' => true, ];
 
 		$activite['Yoga'][] = [ 'value' => base64_encode('Jeudi-9h à 10h15-Salle Créadanse'), 'html' => 'Le Jeudi de 9h à 10h15 - Salle Créadanse', 'prix' => 249, ];
 		$activite['Yoga'][] = [ 'value' => base64_encode('Jeudi-10h15 à 11h30-Salle Créadanse'), 'html' => 'Le Jeudi de 10h15 à 11h30 - Salle Créadanse', 'prix' => 249, ];
