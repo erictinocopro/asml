@@ -31,6 +31,19 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
+	'access_filter' => [
+    	'options' => [
+        	'mode' => 'restrictive'
+    	],
+    	'controllers' => [
+        	\Asml\Controller\AsmlController::class => [
+            	// Allow anyone to visit "index" and "about" actions
+            	['actions' => ['index'], 'allow' => '*'],
+            	// Allow authenticated users to visit "settings" action
+            	['actions' => ['settings'], 'allow' => '@']
+        	],
+    	]
+	],
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,

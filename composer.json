@@ -30,7 +30,9 @@
         "zendframework/zend-math": "^3.0",
         "alepane21/php-google-spreadsheet-client": "2.2.*",
         "google/apiclient": "^2.0.0@RC",
-        "mailjet/mailjet-apiv3-php": "^1.2"
+        "mailjet/mailjet-apiv3-php": "^1.2",
+        "zendframework/zend-authentication": "^2.5",
+        "zendframework/zend-crypt": "^3.2"
     },
     "autoload": {
         "psr-4": {

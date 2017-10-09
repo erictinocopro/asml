@@ -5,6 +5,16 @@ use Zend\Router\Http\Segment;
 
 return [
     'routes' => [
+        'home' => [
+            'type' => Segment::class,
+            'options' => [
+                'route' => '/home',
+                'defaults' => [
+                    'controller' => \Asml\Controller\AsmlController::class,
+                    'action'     => 'home',
+                ],
+            ],
+        ],
         'asml' => [
             'type'    => Segment::class,
             'options' => [
@@ -63,5 +73,25 @@ return [
                 ],
             ],
         ],
+		'login' => [
+			'type' => Literal::class,
+			'options' => [
+				'route'    => '/login',
+				'defaults' => [
+					'controller' => \Asml\Controller\AsmlAuthController::class,
+					'action'     => 'login',
+				],
+			],
+		],
+		'logout' => [
+			'type' => Literal::class,
+			'options' => [
+				'route'    => '/logout',
+				'defaults' => [
+					'controller' => \Asml\Controller\AsmlAuthController::class,
+					'action'     => 'logout',
+				],
+			],
+		],
     ],
 ];

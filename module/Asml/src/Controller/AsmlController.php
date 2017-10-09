@@ -334,37 +334,11 @@ class AsmlController extends AsmlAbstractController
         return $result;
     }
 
-    public function authenticateUserAction()
+    public function homeAction()
     {
-
-        $form = new Form('asml-authen');
- 	    $form->add([
-     		'type' => 'Zend\Form\Element\Csrf',
-     		'name' => 'ctok',
-     		'options' => [
-                'csrf_options' => [
-                    'timeout' => 600,
-				    'salt' => 'lmsa',
-                ],
-     		],
- 		]);
-
-        try{
-		    $request = $this->getRequest();
-		    if ($request->isPost()){
-
-			    $postData = $request->getContent(); 
-			    if ($postData != null){
-
-				    $json = \Zend\Json\Json::decode($postData, \Zend\Json\Json::TYPE_OBJECT);
-
-                    $authenPayload = [];
-			    }
-		    }
-	    }catch(\Exception $e){
-
-		    $authenPayload = ["error"    =>  $e->getMessage(),];
-	    }
-	    return $this->renderJson($authenPayload); 
-    }
+        return new ViewModel([
+            'uidGA' => $uidGa,
+            'googleCaptcha' => $googleCaptcha,
+    	]);
+    } 
 }
