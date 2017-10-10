@@ -30,7 +30,7 @@ class AuthAdapter implements AdapterInterface
     /**
      * Constructor.
      */
-    public function __construct($entityManager)
+    public function __construct($entityManager = null)
     {
         $this->entityManager = $entityManager;
     }

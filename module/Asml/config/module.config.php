@@ -30,7 +30,7 @@ return [
     'access_filter' => [
     	'controllers' => [
         	Controller\AsmlController::class => [
-            	['actions' => ['index'], 'allow' => '*'],
+            	['actions' => ['index', 'save', 'clean', 'sectionsList', 'activitiesList', ], 'allow' => '*'],
             	['actions' => ['home'], 'allow' => '@'],
         	],
             Controller\AsmlAuthController::class => [

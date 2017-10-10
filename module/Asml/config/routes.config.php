@@ -18,7 +18,7 @@ return [
         'asml' => [
             'type'    => Segment::class,
             'options' => [
-                'route' => '/asml',
+                'route' => '/',
                 'defaults' => [
                     'controller' => \Asml\Controller\AsmlController::class,
                     'action'     => 'index',
@@ -29,7 +29,7 @@ return [
                 'sections' => [
                     'type' => Literal::class,
                     'options' => [
-                        'route' => '/sections',
+                        'route' => 'sections',
                         'defaults' => [
                             'action' => 'sectionsList',
                         ],
@@ -38,7 +38,7 @@ return [
                 'activities' => [
                     'type' => Literal::class,
                     'options' => [
-                        'route' => '/activities',
+                        'route' => 'activities',
                         'defaults' => [
                             'action' => 'activitiesList',
                         ],
@@ -47,7 +47,7 @@ return [
                 'savedata' => [
                     'type' => Literal::class,
                     'options' => [
-                        'route' => '/save',
+                        'route' => 'save',
                         'defaults' => [
                             'action' => 'saveData',
                         ],
@@ -56,7 +56,7 @@ return [
                 'deletedata' => [
                     'type' => Literal::class,
                     'options' => [
-                        'route' => '/clean',
+                        'route' => 'clean',
                         'defaults' => [
                             'action' => 'cleanData',
                         ],
@@ -65,7 +65,7 @@ return [
                 'uploadphoto' => [
                     'type' => Literal::class,
                     'options' => [
-                        'route' => '/uploadphoto',
+                        'route' => 'uploadphoto',
                         'defaults' => [
                             'action' => 'uploadPhoto',
                         ]
